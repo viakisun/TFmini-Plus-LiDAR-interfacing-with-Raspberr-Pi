@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*
 import time
 import serial
+import odroid_wiringpi as wpi
 # written by Ibrahim for Public use
 
 # Checked with TFmini plus
+ser = serial.Serial("/dev/ttyS1", 115200)
 
-# ser = serial.Serial("/dev/ttyUSB1", 115200)
-
-ser = serial.Serial("/dev/ttyAMA0", 115200)
-# ser = serial.Serial("COM12", 115200)
-
+# Relay
+wpi.wiringPiSetup()
+wpi.pinMode(4, 1)
 
 # we define a new function that will get the data from LiDAR and publish it
 def read_data():
@@ -27,6 +27,12 @@ def read_data():
                 temperature = (temperature/8) - 256
                 print("Distance:"+ str(distance))
                 print("Strength:" + str(strength))
+
+                if distance < 100:
+                    wpi.digitalWrite(4, 1)
+                else:
+                    wpi.digitalWrite(4, 0)
+
                 if temperature != 0:
                     print("Temperature:" + str(temperature))
                 ser.reset_input_buffer()
