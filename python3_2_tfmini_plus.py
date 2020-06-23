@@ -4,6 +4,8 @@ import serial
 import odroid_wiringpi as wpi
 # written by Ibrahim for Public use
 
+from tkinter import *
+
 # Checked with TFmini plus
 ser = serial.Serial("/dev/ttyS1", 115200)
 
@@ -11,8 +13,11 @@ ser = serial.Serial("/dev/ttyS1", 115200)
 wpi.wiringPiSetup()
 wpi.pinMode(4, 1)
 
+curtime = 0
+
 # we define a new function that will get the data from LiDAR and publish it
 def read_data():
+    global curtime
     while True:
         counter = ser.in_waiting # count the number of bytes of the serial port
         if counter > 8:
@@ -29,9 +34,11 @@ def read_data():
                 print("Strength:" + str(strength))
 
                 if distance < 100:
+                    curtime = time.time()
                     wpi.digitalWrite(4, 1)
                 else:
-                    wpi.digitalWrite(4, 0)
+                    if time.time() - curtime > 2:
+                        wpi.digitalWrite(4, 0)
 
                 if temperature != 0:
                     print("Temperature:" + str(temperature))
