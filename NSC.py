@@ -13,28 +13,37 @@ wpi.pinMode(4, 1)
 
 curtime = 0
 
+root = Tk()
+distanceVar = StringVar()
+frame = Frame(root, width=1280, height=800, relief='solid',bd=1)
+label_distance = Label(frame, textvariable=distanceVar, relief=RAISED)
+distanceVar.set("Show me distance")
+label_distance.pack()
+
 def setup():
     # Checked with TFmini plus
+    global frame
 
     try:
         if ser.isOpen() == False:
             ser.open()
-        read_data()
     except KeyboardInterrupt(): # ctrl + c in terminal.
         if ser != None:
             ser.close()
             print("program interrupted by the user")
 
-    window = Frame(root,width=100,height=100,relief='solid',bd=1)
-    window.place(x=10, y=10)
+    #frame = Frame(root,width=100,height=100,relief='solid',bd=1)
+    frame.place(x=10, y=10)
 
-    text = Label(frame,text='HELLO')
-    text.pack()
+    #text = Label(frame,text='HELLO')
+    #text.pack()
 
 # we define a new function that will get the data from LiDAR and publish it
 def read_data():
     global curtime
-    global text
+    global distanceVar
+    global label_distance
+    global frame
 
     counter = ser.in_waiting # count the number of bytes of the serial port
     if counter > 8:
@@ -50,7 +59,10 @@ def read_data():
             print("Distance:"+ str(distance))
             print("Strength:" + str(strength))
 
-            text = str(distance)
+            output = str(distance)
+            distanceVar.set(output)
+            #label_distance.configure(text=output)
+            #frame.update()
 
             if distance < 100:
                 curtime = time.time()
@@ -82,12 +94,11 @@ def read_data():
 
 
 def Refresher():
-    global text
-    text.configure(text=time.asctime())
-    root.after(1000, Refresher) # every second...
+    read_data()
+    root.after(10, Refresher) # every second...
 
 
-root = Tk()
+#root = Tk()
 setup()
 Refresher()
 root.mainloop()
