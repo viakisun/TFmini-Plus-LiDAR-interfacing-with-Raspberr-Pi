@@ -15,6 +15,12 @@ wpi.pinMode(4, 1)
 
 curtime = 0
 
+frame = Frame(root,width=100,height=100,relief='solid',bd=1)
+frame.place(x=10,y=10)
+
+text = Label(frame,text='HELLO')
+text.pack()
+
 # we define a new function that will get the data from LiDAR and publish it
 def read_data():
     global curtime
