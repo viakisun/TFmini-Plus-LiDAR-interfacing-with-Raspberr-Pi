@@ -29,7 +29,7 @@ class SprayManagerWindow:
     def start(self):
         self.rangeFinder.start();
 
-    def stop(self):
+#    def stop(self):
 
     def unload(self):
         self.root.mainloop()
