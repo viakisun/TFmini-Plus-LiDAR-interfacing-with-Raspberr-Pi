@@ -18,10 +18,10 @@ class RangeFinder():
                 print("program interrupted by the user")
 
     def read(self):
-        counter = ser.in_waiting # count the number of bytes of the serial port
+        counter = self.ser.in_waiting # count the number of bytes of the serial port
         if counter > 8:
-            bytes_serial = ser.read(9)
-            ser.reset_input_buffer()
+            bytes_serial = self.ser.read(9)
+            self.ser.reset_input_buffer()
 
             # this portion is for python3
             if bytes_serial[0] == 0x59 and bytes_serial[1] == 0x59:
