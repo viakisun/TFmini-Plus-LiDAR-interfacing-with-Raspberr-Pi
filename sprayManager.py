@@ -11,7 +11,7 @@ class SprayManagerWindow:
         self.distanceBar = StringVar()
         self.distanceVar.set("Show me distance")
 
-        label_distance = Label(self.frame, textvariable=distanceVar, relief=RAISED)
+        label_distance = Label(self.frame, textvariable=self.distanceVar, relief=RAISED)
         label_distance.pack()
 
         button = Button(self.frame, overrelief="solid", width=15, command=self.update, repeatdelay=1000, repeatinterval=100)
