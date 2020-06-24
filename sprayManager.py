@@ -1,5 +1,5 @@
 from tkinter import *
-from RangerFinder import *
+from RangeFinder import *
 
 _root = Tk()
 
@@ -17,7 +17,7 @@ class SprayManagerWindow:
         button = Button(self.frame, overrelief="solid", width=15, command=self.update, repeatdelay=1000, repeatinterval=100)
         button.pack()
 
-        self.rangeFinder = RangerFinder()
+        self.rangeFinder = RangeFinder()
 
     def refresher(self):
         distance = self.rangeFinder.read()
