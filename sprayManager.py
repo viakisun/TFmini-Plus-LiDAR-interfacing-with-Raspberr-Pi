@@ -4,7 +4,7 @@ from RangerFinder import *
 _root = Tk()
 
 class SprayManagerWindow:
-    def init(self):
+    def __init__(self):
         self.frame = Frame(_root, width=1280, height=800, relief='solid',bd=1)
         self.frame.place(x=10, y=10)
 
