@@ -36,10 +36,10 @@ class RangeFinder():
 
                 if distance < 100:
                     self.curtime = time.time()
-                    self.wpi.digitalWrite(4, 1)
+                    wpi.digitalWrite(4, 1)
                 else:
                     if time.time() - self.curtime > 2:
-                        self.wpi.digitalWrite(4, 0)
+                        wpi.digitalWrite(4, 0)
 
                 if temperature != 0:
                     print("Temperature:" + str(temperature))
