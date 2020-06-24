@@ -5,8 +5,8 @@ import time
 class RangeFinder():
     def __init__(self):
         self.ser = serial.Serial("/dev/ttyS1", 115200)
-        self.wpi.wiringPiSetup()
-        self.wpi.pinMode(4, 1)
+        wpi.wiringPiSetup()
+        wpi.pinMode(4, 1)
         self.curtime = 0
 
         try:
