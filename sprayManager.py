@@ -23,7 +23,7 @@ class SprayManagerWindow:
         distance = self.rangeFinder.read()
         output = str(distance)
         self.distanceVar.set(output)
-        _root.after(10, refresher) # every second...
+        _root.after(10, self.refresher) # every second...
 
     def start(self):
         return
