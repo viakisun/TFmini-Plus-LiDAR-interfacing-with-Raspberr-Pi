@@ -8,6 +8,7 @@ class SprayManagerWindow:
         self.fullScreenState == True
 
         _root.attributes("-fullscreen",True)
+        _root.bind("<Escape>", self.end_fullscreen)
         self.frame = Frame(_root, width=1280, height=800, relief='solid',bd=1)
         self.frame.place(x=10, y=10)
         self.distanceVar = StringVar()
@@ -38,6 +39,11 @@ class SprayManagerWindow:
 
     def unload(self):
         _root.mainloop()
+
+    def end_fullscreen(self, event=None):
+        self.state = False
+        self.tk.attributes("-fullscreen", False)
+        return "break"
 
 _manager = SprayManagerWindow()
 _manager.refresher()
