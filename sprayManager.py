@@ -44,15 +44,19 @@ class SprayManagerWindow:
         return "break"
 
     def openSprayDialog(self):
-        d = SprayTimeDialog(_root, self.valor)
+        d = SprayTimeDialog(_root)
         _root.wait_window(d.top)
         #self.valor.set(d.ejemplo)
 
 
 class SprayTimeDialog:
-    def __init__(self, parent, valor):
+    def __init__(self, parent):
         title = "분사시간"
         labeltext = "분사시간을 입력하세요."
+
+        valor = StringVar()
+        valor.set("Hola Manejando datos")
+
         self.top = Toplevel(parent)
         self.top.transient(parent)
         self.top.grab_set()
@@ -70,7 +74,7 @@ class SprayTimeDialog:
  
     def ok(self, event=None):
         print("Has escrito ...", self.e.get())
-        self.valor.set(self.e.get())
+        valor.set(self.e.get())
         self.top.destroy()
  
     def cancel(self, event=None):
