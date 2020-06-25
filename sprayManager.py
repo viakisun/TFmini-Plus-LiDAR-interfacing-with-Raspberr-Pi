@@ -22,9 +22,9 @@ class SprayManagerWindow:
         self.rangeFinder = RangeFinder()
 
     def refresher(self):
-        distance = self.rangeFinder.read()
-        output = str(distance)
-        self.distanceVar.set(output)
+        #distance = self.rangeFinder.read()
+        #output = str(distance)
+        #self.distanceVar.set(output)
         _root.after(10, self.refresher) # every second...
 
     def start(self):
@@ -44,6 +44,6 @@ class SprayManagerWindow:
         return "break"
 
 _manager = SprayManagerWindow()
-#_manager.refresher()
+_manager.refresher()
 
 _root.mainloop()
