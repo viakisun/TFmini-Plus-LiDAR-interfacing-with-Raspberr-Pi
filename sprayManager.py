@@ -44,7 +44,7 @@ class SprayManagerWindow:
         return "break"
 
     def openSprayDialog(self):
-        d = SprayTimeDialog(root, self.valor, "Probando Dialogo", "Dame valor")
+        d = SprayTimeDialog(_root, self.valor, "Probando Dialogo", "Dame valor")
         _root.wait_window(d.top)
         #self.valor.set(d.ejemplo)
 
