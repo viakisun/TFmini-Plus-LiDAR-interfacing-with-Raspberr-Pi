@@ -5,10 +5,11 @@ _root = Tk()
 
 class SprayManagerWindow:
     def __init__(self):
+        self.fullScreenState == True
+
         _root.attributes("-fullscreen",True)
         self.frame = Frame(_root, width=1280, height=800, relief='solid',bd=1)
         self.frame.place(x=10, y=10)
-
         self.distanceVar = StringVar()
         self.distanceVar.set("Show me distance")
 
