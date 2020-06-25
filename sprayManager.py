@@ -20,7 +20,7 @@ class SprayManagerWindow:
         self.debugVar = StringVar()
         self.debugVar.set("Debug Message")
         label_debug = Label(_root, textvariable=self.debugVar, relief=RAISED)
-        label_debug.place(relx=1.0, rely=1.0, anchor='se')
+        label_debug.place(x=700,y=300)
         label_debug.pack()
 
         button = Button(self.frame, overrelief="solid", width=15, command=self.update, repeatdelay=1000, repeatinterval=100, text="버튼")
