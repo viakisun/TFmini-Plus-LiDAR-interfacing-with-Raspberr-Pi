@@ -16,13 +16,6 @@ class SprayManagerWindow:
         label_distance = Label(self.frame, textvariable=self.distanceVar, relief=RAISED)
         label_distance.pack()
 
-        #디버그용도로 사용하는 라벨을 위한 세팅
-        self.debugVar = StringVar()
-        self.debugVar.set("Debug Message")
-        label_debug = Label(_root, textvariable=self.debugVar)
-        label_debug.place(x=700,y=300)
-        label_debug.pack()
-
         button = Button(self.frame, overrelief="solid", width=15, command=self.update, repeatdelay=1000, repeatinterval=100, text="버튼")
         button.pack()
 
@@ -51,6 +44,6 @@ class SprayManagerWindow:
         return "break"
 
 _manager = SprayManagerWindow()
-_manager.refresher()
+#_manager.refresher()
 
 _root.mainloop()
