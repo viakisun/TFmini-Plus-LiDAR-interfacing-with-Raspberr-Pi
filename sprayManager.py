@@ -16,7 +16,7 @@ class SprayManagerWindow:
         label_distance = Label(self.frame, textvariable=self.distanceVar, relief=RAISED)
         label_distance.pack()
 
-        button = Button(self.frame, overrelief="solid", width=15, command=self.update, repeatdelay=1000, repeatinterval=100, text="버튼")
+        button = Button(self.frame, overrelief="solid", width=15, command=self.openSprayDialog, repeatdelay=1000, repeatinterval=100, text="버튼")
         button.pack()
 
         self.rangeFinder = RangeFinder()
@@ -43,8 +43,13 @@ class SprayManagerWindow:
         _root.attributes("-fullscreen", False)
         return "break"
 
+    def openSprayDialog(self):
+        d = SprayTimeDialog(root, self.valor, "Probando Dialogo", "Dame valor")
+        root.wait_window(d.top)
+        #self.valor.set(d.ejemplo)
 
-class MyDialog:
+
+class SprayTimeDialog:
     def __init__(self, parent, valor, title, labeltext = '' ):
         self.valor = valor
  
