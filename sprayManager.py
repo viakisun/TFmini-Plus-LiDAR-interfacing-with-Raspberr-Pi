@@ -64,7 +64,7 @@ class MyDialog:
         b.pack(pady=5)
  
     def ok(self, event=None):
-        print "Has escrito ...", self.e.get()
+        print("Has escrito ...", self.e.get())
         self.valor.set(self.e.get())
         self.top.destroy()
  
