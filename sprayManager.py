@@ -15,7 +15,7 @@ class SprayManagerWindow:
         label_distance = Label(self.frame, textvariable=self.distanceVar, relief=RAISED)
         label_distance.pack()
 
-        button = Button(self.frame, overrelief="solid", width=15, command=self.update, repeatdelay=1000, repeatinterval=100)
+        button = Button(self.frame, overrelief="solid", width=15, command=self.update, repeatdelay=1000, repeatinterval=100, text="버튼")
         button.pack()
 
         self.rangeFinder = RangeFinder()
