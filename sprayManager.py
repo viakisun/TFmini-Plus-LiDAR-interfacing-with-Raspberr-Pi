@@ -19,7 +19,7 @@ class SprayManagerWindow:
         #디버그용도로 사용하는 라벨을 위한 세팅
         self.debugVar = StringVar()
         self.debugVar.set("Debug Message")
-        label_debug = Label(_root, textvariable=self.debugVar, relief=RAISED)
+        label_debug = Label(_root, textvariable=self.debugVar)
         label_debug.place(x=700,y=300)
         label_debug.pack()
 
