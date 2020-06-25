@@ -5,8 +5,6 @@ _root = Tk()
 
 class SprayManagerWindow:
     def __init__(self):
-        self.fullScreenState == True
-
         _root.attributes("-fullscreen",True)
         _root.bind("<Escape>", self.end_fullscreen)
         self.frame = Frame(_root, width=1280, height=800, relief='solid',bd=1)
@@ -41,8 +39,7 @@ class SprayManagerWindow:
         _root.mainloop()
 
     def end_fullscreen(self, event=None):
-        self.state = False
-        self.tk.attributes("-fullscreen", False)
+        _root.attributes("-fullscreen", False)
         return "break"
 
 _manager = SprayManagerWindow()
