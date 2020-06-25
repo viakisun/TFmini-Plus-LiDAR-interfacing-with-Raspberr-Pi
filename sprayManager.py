@@ -17,9 +17,6 @@ class SprayManagerWindow:
         label_distance.pack()
 
         button = Button(self.frame, overrelief="solid", width=15, command=self.openSprayDialog, repeatdelay=1000, repeatinterval=100, text="버튼")
-        #아래 2줄 필요없는 부분
-        self.valor = StringVar()
-        self.valor.set("Hola Manejando datos")
         button.pack()
 
         self.rangeFinder = RangeFinder()
@@ -47,15 +44,15 @@ class SprayManagerWindow:
         return "break"
 
     def openSprayDialog(self):
-        d = SprayTimeDialog(_root, self.valor, "Probando Dialogo", "Dame valor")
+        d = SprayTimeDialog(_root, self.valor)
         _root.wait_window(d.top)
         #self.valor.set(d.ejemplo)
 
 
 class SprayTimeDialog:
-    def __init__(self, parent, valor, title, labeltext = '' ):
-        self.valor = valor
- 
+    def __init__(self, parent, valor):
+        title = "분사시간"
+        labeltext = "분사시간을 입력하세요."
         self.top = Toplevel(parent)
         self.top.transient(parent)
         self.top.grab_set()
