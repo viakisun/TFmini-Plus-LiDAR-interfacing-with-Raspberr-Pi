@@ -17,6 +17,9 @@ class SprayManagerWindow:
         label_distance.pack()
 
         button = Button(self.frame, overrelief="solid", width=15, command=self.openSprayDialog, repeatdelay=1000, repeatinterval=100, text="버튼")
+        #아래 2줄 필요없는 부분
+        self.valor = StringVar()
+        self.valor.set("Hola Manejando datos")
         button.pack()
 
         self.rangeFinder = RangeFinder()
