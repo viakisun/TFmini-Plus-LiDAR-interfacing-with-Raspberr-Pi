@@ -1,3 +1,5 @@
+from tkinter import *
+
 class SprayTimeDialog:
     def __init__(self, parent):
         title = "분사시간"
