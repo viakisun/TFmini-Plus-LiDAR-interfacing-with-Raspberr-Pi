@@ -6,7 +6,7 @@ _root = Tk()
 
 class SprayManagerWindow:
     def __init__(self):
-        _root.geometry("800x600")
+        _root.geometry("1024x600")
         _root.attributes("-fullscreen",True)
         _root.bind("<Escape>", self.end_fullscreen)
         self.frame = Frame(_root, width=1024, height=600, relief='solid',bd=1)
