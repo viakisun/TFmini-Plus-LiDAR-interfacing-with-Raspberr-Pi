@@ -1,21 +1,17 @@
 from tkinter import *
 
-class SprayTimeDialog:
+class SprayTimeDialog():
+    m_title = "분사시간"
+    m_labeltext = "분사시간을 입력하세요."
+
     def __init__(self, parent):
-        title = "분사시간"
-        labeltext = "분사시간을 입력하세요."
-
-        #valor = StringVar()
-        #valor.set("Hola Manejando datos")
-
         self.top = Toplevel(parent)
         self.top.transient(parent)
         self.top.grab_set()
-        if len(title) > 0: self.top.title(title)
-        if len(labeltext) == 0: labeltext = 'Valor'
-        Label(self.top, text=labeltext).pack()
+        if len(m_title) > 0: self.top.title(m_title)
+        if len(m_labeltext) == 0: m_labeltext = 'Valor'
+        Label(self.top, text=m_labeltext).pack()
         self.top.bind("<Return>", self.ok)
-        #self.e = Entry(self.top, text=valor.get())
         self.e = Entry(self.top)
         self.e.bind("<Return>", self.ok)
         self.e.bind("<Escape>", self.cancel)
