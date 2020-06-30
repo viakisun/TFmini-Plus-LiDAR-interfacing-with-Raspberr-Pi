@@ -21,7 +21,6 @@ class SampleApp(tk.Tk):
         self.label_font_03 = tkfont.Font(size=60)
         self.label_font_04 = tkfont.Font(size=20)
 
-
         #이미지 관리
         self.settingBtnImg = tk.PhotoImage(file='images/btn_01.png') #PhotoImage객체 생성
         self.imgBtnHome = tk.PhotoImage(file='images/btn_02.gif')
@@ -45,7 +44,6 @@ class SampleApp(tk.Tk):
         self.imgBtnSprayOff = tk.PhotoImage(file='images/btnSprayOff.png')
 
 
-        #기본값 관리
         self.sprayMode = SprayMode.MANUAL
         self.distanceModeSprayTime = 5.5
         self.distanceModeDetectDistance = 1.0
@@ -54,10 +52,12 @@ class SampleApp(tk.Tk):
         self.MAX_DETECT_DISTANCE = 3.0
         self.MIN_DETECT_DISTANCE = 0.5
 
-        self.distanceModeSprayTime = 5.5
-        self.distanceModeDetectDistance = 1.0
-
-        
+        self.autoModeCycleTime = 1
+        self.autoModeSprayTime = 10
+        self.MAX_AUTO_SPRAY_TIME = 30
+        self.MIN_AUTO_SPRAY_TIME = 5
+        self.MAX_AUTO_CYCLE_TIME = 10
+        self.MIN_AUTO_CYCLE_TIME = 1
 
 
         # the container is where we'll stack a bunch of frames

@@ -6,6 +6,7 @@ if platform.system() == "Linux" :
     from RangeFinder import *
 
 from SprayMode import *
+import odroid_wiringpi as wpi
 
 
 class StartPage(tk.Frame):
@@ -13,6 +14,7 @@ class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+        wpi.wiringPiSetup()
        
         frameButton = tk.Frame(self, relief="solid", bg="red", height=60)
         frameButton.pack(side="left", fill="both", expand=True)
@@ -30,10 +32,15 @@ class StartPage(tk.Frame):
         self.btnMode3.place(relx=0.7, rely=0.25)
         self.btnMode4.place(relx=0.18, rely=0.65)
         self.btnMode5.place(relx=0.49, rely=0.65)
-       
+
         self.modeBtnCheck()
         if platform.system() == "Linux" :
             self.rangeFinder = RangeFinder(controller)
+
+        self.curtime1 = None
+        self.curtime2 = None
+
+        self sprayByTime()
 
     def modeBtnCheck(self):
         self.btnMode1.configure(image = self.controller.imgBtnDistance01)
@@ -66,5 +73,24 @@ class StartPage(tk.Frame):
                 distance = self.rangeFinder.read()
             self.after(10, self.refresher) # every second...
 
-    def startAuto(self):
-        print("automode start")
+
+
+    def sprayByTime(self):
+        if self.curtime2 is None :
+            self.curtime2 = time.time()
+            wpi.digitalWrite(4, 1)
+        else :
+            if time.time() - self.curtime2 > 2 :
+                wpi.digitalWrite(4, 0)
+                self.curtime2 = None
+                return True
+        self.after(10, self.sprayByTime)
+            
+
+
+
+        # if distance < (self.controller.distanceModeDetectDistance * 100) :
+        #     wpi.digitalWrite(4, 1)
+        # else:
+        #     if time.time() - self.curtime > self.controller.distanceModeSprayTime :
+        #         wpi.digitalWrite(4, 0)
