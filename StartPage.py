@@ -68,7 +68,7 @@ class StartPage(tk.Frame):
 
         if sprayMode == SprayMode.DISTANCE :
             if self.controller.sprayMode == SprayMode.DISTANCE :
-                self.refresher
+                self.refresher()
         elif sprayMode == SprayMode.AUTO :
             return False
         elif sprayMode == SprayMode.MANUAL:
