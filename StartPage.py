@@ -40,8 +40,6 @@ class StartPage(tk.Frame):
         btnMode4.place(relx=0.17, rely=0.75)
         btnMode5.place(relx=0.47, rely=0.75)
 
-        # self.window.bind("<Escape>", self.end_fullscreen)
-
     def sprayStart(self):
         if self.manualSprayOn :
             wpi.digitalWrite(4, 0)
