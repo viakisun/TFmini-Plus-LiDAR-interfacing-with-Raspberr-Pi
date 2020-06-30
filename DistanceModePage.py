@@ -35,7 +35,7 @@ class DistanceModePage(tk.Frame):
         btnHome = tk.Button(frameLeft, relief="solid", bd=0, image=controller.imgBtnHome, bg="#c4c4c4", command=lambda: controller.show_frame("StartPage"))
         btnHome.place(relx=0.3, rely=0.2)
        
-        btnSave = tk.Button(frameLeft, relief="solid", bd=0, image=controller.imgBtnSave, bg="#c4c4c4")
+        btnSave = tk.Button(frameLeft, relief="solid", bd=0, image=controller.imgBtnSave, bg="#c4c4c4", command=lambda: self.save())
         btnSave.place(relx=0.3, rely=0.45)
 
         btnInit = tk.Button(frameLeft, relief="solid", bd=0, image=controller.imgBtnInit, bg="#c4c4c4")
