@@ -33,9 +33,6 @@ class DistanceModePage(tk.Frame):
         
         btnDistanceDown = tk.Button(frame, relief="solid", bd=0, command=lambda: self.downDistance(), image=controller.imgBtnDown, bg="#0C4323")
         btnDistanceDown.place(relx=0.76, rely=0.38)
-
-
-
        
         #오른쪽 분사시간 조절
         lblTime = tk.Label(frame, fg="white", bg="#467E39", font=tkfont.Font(size=50, weight="bold"), textvariable=self.sprayTimeVar, anchor="e", padx=10)

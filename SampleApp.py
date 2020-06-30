@@ -4,6 +4,7 @@ import tkinter as tk                # python 3
 from tkinter import font  as tkfont # python 3
 from StartPage import *
 from DistanceModePage import *
+from ManualPage import *
 from SprayMode import *
 
 class SampleApp(tk.Tk):
@@ -27,6 +28,7 @@ class SampleApp(tk.Tk):
         self.imgBtnInit = tk.PhotoImage(file='images/btn_04.gif')
         self.img01 = tk.PhotoImage(file='images/bg_01.png')
         self.img02 = tk.PhotoImage(file='images/bg_02.png')
+        self.img04 = tk.PhotoImage(file='images/bg_04.png')
 
         self.imgBtnDistance01 = tk.PhotoImage(file='images/btnDistance01.png')
         self.imgBtnDistance02 = tk.PhotoImage(file='images/btnDistance02.png')
@@ -37,6 +39,9 @@ class SampleApp(tk.Tk):
         self.imgBtnBack = tk.PhotoImage(file='images/btnBack.png')
         self.imgBtnUp = tk.PhotoImage(file='images/btnUp.png')
         self.imgBtnDown = tk.PhotoImage(file='images/btnDown.png')
+        self.imgBtnSprayOn = tk.PhotoImage(file='images/btnSprayOn.png')
+        self.imgBtnSprayOff = tk.PhotoImage(file='images/btnSprayOff.png')
+
 
         #기본값 관리
         self.sprayMode = SprayMode.MANUAL
@@ -58,7 +63,7 @@ class SampleApp(tk.Tk):
         self.attributes()
 
         self.frames = {}
-        for F in (StartPage, DistanceModePage):
+        for F in (StartPage, DistanceModePage, ManualPage):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
@@ -92,6 +97,6 @@ if __name__ == "__main__":
     app = SampleApp()
     app.title("천연살균의학처 방역 시스템")
     app.geometry("1024x600")
-    #app.attributes("-fullscreen",True)
+    # app.attributes("-fullscreen",True)
     app.resizable(False, False)
     app.mainloop()

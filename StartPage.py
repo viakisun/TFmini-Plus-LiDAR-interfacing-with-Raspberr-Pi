@@ -25,7 +25,7 @@ class StartPage(tk.Frame):
         background_label = tk.Label(frameButton, image=controller.img01)
         background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-        self.btnMode1 = tk.Button(frameButton, image=controller.imgBtnDistance01, relief="solid", command=lambda: self.changeSprayMode(SprayMode.DISTANCE,self.btnMode1), bd=0, bg="#0C4323")
+        self.btnMode1 = tk.Button(frameButton, image=controller.imgBtnDistance01, relief="ridge", command=lambda: self.changeSprayMode(SprayMode.DISTANCE,self.btnMode1), bd=0, bg="#0C4323")
         self.btnMode2 = tk.Button(frameButton, image=controller.imgBtnAuto01, relief="solid", command=lambda: self.changeSprayMode(SprayMode.AUTO,self.btnMode2), bd=0, bg="#0C4323")
         self.btnMode3 = tk.Button(frameButton, image=controller.imgBtnManual01, relief="solid", command=lambda: self.changeSprayMode(SprayMode.MANUAL,self.btnMode3), bd=0, bg="#0C4323")
         self.btnMode4 = tk.Button(frameButton, relief="solid", bd=0, image=controller.settingBtnImg, command=lambda: controller.show_frame("DistanceModePage"), bg="#0C4323")
@@ -74,7 +74,7 @@ class StartPage(tk.Frame):
             return False
         elif sprayMode == SprayMode.MANUAL:
             if self.controller.sprayMode == SprayMode.MANUAL :
-                self.sprayStart()
+                self.controller.show_frame("ManualPage")
         else:
             return False
 
