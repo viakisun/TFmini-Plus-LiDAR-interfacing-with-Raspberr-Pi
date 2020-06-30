@@ -38,8 +38,6 @@ class StartPage(tk.Frame):
         self.btnMode5.place(relx=0.49, rely=0.65)
        
         self.modeBtnCheck()
-
-
         if platform.system() == "Linux" :
             self.rangeFinder = RangeFinder(controller)
 
