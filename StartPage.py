@@ -9,7 +9,7 @@ class StartPage(tk.Frame):
 
         self.strSprayMode = tk.StringVar()
         self.strSprayMode.set("수동분사")
-        self.manualSprayOn = false;
+        self.manualSprayOn = False;
         
         #상단메뉴
         frameTop = tk.Frame(self, relief="solid", bg="#222222", height=60)
