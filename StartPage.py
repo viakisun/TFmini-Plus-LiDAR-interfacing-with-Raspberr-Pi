@@ -47,7 +47,7 @@ class StartPage(tk.Frame):
         self.btnMode5.place(relx=0.47, rely=0.75)
 
         if platform.system() == "Linux" :
-            self.rangeFinder = RangeFinder()
+            self.rangeFinder = RangeFinder(controller)
 
     def sprayStart(self):
         if self.manualSprayOn :
