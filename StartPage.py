@@ -74,7 +74,7 @@ class StartPage(tk.Frame):
 
 
     def startAuto(self):
-        if self.controller.SprayMode == SprayMode.AUTO :
+        if self.controller.sprayMode == SprayMode.AUTO :
             self.sprayByTime()
             threading.Timer(5, startAuto).start()
 
