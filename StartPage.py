@@ -73,16 +73,19 @@ class StartPage(tk.Frame):
 
 
     def startAuto(self):
-        if self.curtime1 is None :
-            self.curtime1 = time.time()
-            self.sprayByTime()
-        else : 
-            if time.time() - self.curtime1 > 5 :
-                self.curtime1 = None
-                return True
-            else :
+        if self.controller.SprayMode == SprayMode.AUTO :
+            if self.curtime1 is None :
+                self.curtime1 = time.time()
                 self.sprayByTime()
-        self.after(10, self.startAuto)
+            else : 
+                if time.time() - self.curtime1 > 5 :
+                    self.curtime1 = None
+                    return True
+                else :
+                    self.sprayByTime()
+            self.after(10, self.startAuto)
+        else :
+            return True
 
 
     def sprayByTime(self):
