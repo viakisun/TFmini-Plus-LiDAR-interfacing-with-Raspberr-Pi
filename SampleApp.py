@@ -1,8 +1,6 @@
 import tkinter as tk                # python 3
 from tkinter import font  as tkfont # python 3
 from StartPage import *
-from PageOne import *
-from PageTwo import *
 from DistanceModePage import *
 from SprayMode import *
 
@@ -27,6 +25,13 @@ class SampleApp(tk.Tk):
 
         #기본값 관리
         self.sprayMode = SprayMode.MANUAL
+        self.distanceModeSprayTime = 5.5
+        self.distanceModeDetectDistance = 100
+        self.MAX_SPRAY_TIME = 10
+        self.MIN_SPRAY_TIME = 1
+        self.MAX_DETECT_DISTANCE = 300
+        self.MIN_DETECT_DISTANCE = 50
+
 
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible
@@ -38,7 +43,7 @@ class SampleApp(tk.Tk):
         self.attributes()
 
         self.frames = {}
-        for F in (StartPage, DistanceModePage, PageTwo):
+        for F in (StartPage, DistanceModePage):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
