@@ -72,7 +72,7 @@ class StartPage(tk.Frame):
             self.after(10, self.refresher) # every second...
 
 
-    def startAuto(self)
+    def startAuto(self):
         if self.curtime1 is None :
             self.curtime1 = time.time()
             self.sprayByTime()
