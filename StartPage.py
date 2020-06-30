@@ -23,7 +23,7 @@ class StartPage(tk.Frame):
         self.btnMode2 = tk.Button(frameButton, image=controller.imgBtnAuto01, relief="solid", command=lambda: self.changeSprayMode(SprayMode.AUTO,self.btnMode2), bd=0, bg="#0C4323")
         self.btnMode3 = tk.Button(frameButton, image=controller.imgBtnManual01, relief="solid", command=lambda: self.changeSprayMode(SprayMode.MANUAL,self.btnMode3), bd=0, bg="#0C4323")
         self.btnMode4 = tk.Button(frameButton, relief="solid", bd=0, image=controller.settingBtnImg, command=lambda: controller.show_frame("DistanceModePage"), bg="#0C4323")
-        self.btnMode5 = tk.Button(frameButton, relief="solid", bd=0, image=controller.settingBtnImg, command=lambda: controller.show_frame("DistanceModePage"), bg="#0C4323")
+        self.btnMode5 = tk.Button(frameButton, relief="solid", bd=0, image=controller.settingBtnImg, command=lambda: controller.show_frame("AutoPage"), bg="#0C4323")
 
         self.btnMode1.place(relx=0.1, rely=0.25)
         self.btnMode2.place(relx=0.4, rely=0.25)
@@ -48,19 +48,23 @@ class StartPage(tk.Frame):
             self.btnMode3.configure(image = self.controller.imgBtnManual02)
 
     def changeSprayMode(self,sprayMode,btnObj):
+        self.controller.setSprayMode(sprayMode)
+
         if sprayMode == SprayMode.DISTANCE :
             self.refresher()
         elif sprayMode == SprayMode.AUTO :
-            return False
+            self.startAuto()
         elif sprayMode == SprayMode.MANUAL:
             self.controller.show_frame("ManualPage")
-        else:
-            return False
-
-        self.controller.setSprayMode(sprayMode)
+        
         self.modeBtnCheck()
 
     def refresher(self):
+        print("인식모드 시작")
         if self.controller.sprayMode == SprayMode.DISTANCE :
-            distance = self.rangeFinder.read()
+            if platform.system() == "Linux" :
+                distance = self.rangeFinder.read()
             self.after(10, self.refresher) # every second...
+
+    def startAuto(self):
+        print("오토모드 시작")

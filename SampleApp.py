@@ -5,6 +5,7 @@ from tkinter import font  as tkfont # python 3
 from StartPage import *
 from DistanceModePage import *
 from ManualPage import *
+from AutoPage import *
 from SprayMode import *
 
 class SampleApp(tk.Tk):
@@ -28,6 +29,7 @@ class SampleApp(tk.Tk):
         self.imgBtnInit = tk.PhotoImage(file='images/btn_04.gif')
         self.img01 = tk.PhotoImage(file='images/bg_01.png')
         self.img02 = tk.PhotoImage(file='images/bg_02.png')
+        self.img03 = tk.PhotoImage(file='images/bg_03.png')
         self.img04 = tk.PhotoImage(file='images/bg_04.png')
 
         self.imgBtnDistance01 = tk.PhotoImage(file='images/btnDistance01.png')
@@ -63,7 +65,7 @@ class SampleApp(tk.Tk):
         self.attributes()
 
         self.frames = {}
-        for F in (StartPage, DistanceModePage, ManualPage):
+        for F in (StartPage, DistanceModePage, AutoPage, ManualPage):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
@@ -80,16 +82,6 @@ class SampleApp(tk.Tk):
         frame = self.frames[page_name]
         frame.tkraise()
 
-    def getSprayModeStr(self):
-        if self.sprayMode == SprayMode.DISTANCE :
-            return "거리인식 모드"
-        elif self.sprayMode == SprayMode.AUTO :
-            return "자동 모드"
-        elif self.sprayMode == SprayMode.MANUAL :
-            return "수동분사"
-        else :
-            return False
-
     def setSprayMode(self, sprayMode):
         self.sprayMode = sprayMode
 
@@ -97,6 +89,6 @@ if __name__ == "__main__":
     app = SampleApp()
     app.title("천연살균의학처 방역 시스템")
     app.geometry("1024x600")
-    app.attributes("-fullscreen",True)
+    # app.attributes("-fullscreen",True)
     app.resizable(False, False)
     app.mainloop()
