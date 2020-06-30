@@ -3,7 +3,10 @@ from WindowDistanceMode import *
 
 class ManageWindow:
 
+    windowHome = None
+    windowDistance = None
+
     @classmethod
-    def openWindow(cls):
-        #windowHome = WindowHome()
-        windowDistanceMode = WindowDistanceMode()
+    def getWindows(cls):
+        ManageWindow.windowHome = WindowHome()
+        ManageWindow.windowDistance = WindowDistanceMode()

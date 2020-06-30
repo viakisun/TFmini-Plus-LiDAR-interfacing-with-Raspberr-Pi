@@ -1,3 +1,5 @@
 from ManageWindow import *
 
-ManageWindow.openWindow()
+ManageWindow.getWindows()
+#ManageWindow.windowHome.windowOpen()
+ManageWindow.windowDistance.windowOpen()

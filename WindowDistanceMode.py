@@ -87,11 +87,10 @@ class WindowDistanceMode:
         self.btnDistanceDown = Button(self.frameRight, text="▼", font=self.fontContentButton, relief=SOLID, bd=0, bg="#c4c4c4")
         self.btnDistanceDown.place(relx=0.57, rely=0.31+0.42, relwidth=0.1, relheight=0.1)
 
-
-        
-
-        self.window.mainloop()
         self.window.bind("<Escape>", self.end_fullscreen)
+
+    def windowOpen(self):
+        self.window.mainloop()
 
     def end_fullscreen(self, event=None):
         self.window.attributes("-fullscreen", False)

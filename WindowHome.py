@@ -40,14 +40,14 @@ class WindowHome:
         self.btnMode3.place(relwidth=0.2, relheight=0.6, relx=0.7, rely=0.1)
         self.btnMode4.place(relx=0.17, rely=0.75)
         self.btnMode5.place(relx=0.47, rely=0.75)
-        
-        
-        
 
-        
-
-        self.window.mainloop()
         self.window.bind("<Escape>", self.end_fullscreen)
+
+    def openWindow(self):
+        self.window.mainloop()
+
+
+        
 
     def end_fullscreen(self, event=None):
         self.window.attributes("-fullscreen", False)
