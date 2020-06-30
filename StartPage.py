@@ -2,6 +2,7 @@
 
 import platform
 import tkinter as tk                # python 3
+import threading
 if platform.system() == "Linux" :
     from RangeFinder import *
 
@@ -74,19 +75,7 @@ class StartPage(tk.Frame):
 
     def startAuto(self):
         if self.controller.SprayMode == SprayMode.AUTO :
-            if self.curtime1 is None :
-                self.curtime1 = time.time()
-                self.sprayByTime()
-            else : 
-                if time.time() - self.curtime1 > 5 :
-                    self.curtime1 = None
-                    return True
-                else :
-                    self.sprayByTime()
-            self.after(10, self.startAuto)
-        else :
-            return True
-
+            threading.Timer(5, startAuto).start()
 
     def sprayByTime(self):
         if self.curtime2 is None :

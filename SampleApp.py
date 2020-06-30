@@ -45,7 +45,7 @@ class SampleApp(tk.Tk):
 
 
         self.sprayMode = SprayMode.MANUAL
-        self.distanceModeSprayTime = 5.5
+        self.distanceModeSprayTime = 2.5
         self.distanceModeDetectDistance = 1.0
         self.MAX_SPRAY_TIME = 10.0
         self.MIN_SPRAY_TIME = 1.0
