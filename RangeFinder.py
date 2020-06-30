@@ -34,13 +34,12 @@ class RangeFinder():
                 temperature = (temperature/8) - 256
                 print("Distance:"+ str(distance))
                 print("Strength:" + str(strength))
-                print("asdfasdfasdf : " + str(self.controller.distanceModeDetectDistance))
 
-                if distance < self.controller.distanceModeDetectDistance :
+                if distance < (self.controller.distanceModeDetectDistance * 100) :
                     self.curtime = time.time()
                     wpi.digitalWrite(4, 1)
                 else:
-                    if time.time() - self.curtime > self.controller.distanceModeSprayTime :
+                    if time.time() - self.curtime > self.controller.distanceModeSprayTime * 100 :
                         wpi.digitalWrite(4, 0)
 
                 if temperature != 0:
