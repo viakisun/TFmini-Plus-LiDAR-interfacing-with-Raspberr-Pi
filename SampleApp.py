@@ -94,6 +94,6 @@ if __name__ == "__main__":
     app = SampleApp()
     app.title("천연살균의학처 방역 시스템")
     app.geometry("1024x600")
-    # app.attributes("-fullscreen",True)
+    app.attributes("-fullscreen",True)
     app.resizable(False, False)
     app.mainloop()
