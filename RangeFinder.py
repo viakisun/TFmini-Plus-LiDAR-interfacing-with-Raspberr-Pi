@@ -6,7 +6,6 @@ class RangeFinder():
     def __init__(self, controller):
         self.ser = serial.Serial("/dev/ttyS1", 115200)
         wpi.wiringPiSetup()
-        wpi.pinMode(4, 1)
         self.curtime = 0
         self.controller = controller
 
