@@ -83,4 +83,5 @@ class StartPage(tk.Frame):
     def refresher(self):
         distance = self.rangeFinder.read()
         print(str(distance))
-        self.after(10, self.refresher) # every second...
+        if self.controller.sprayMode == SprayMode.DISTANCE :
+            self.after(10, self.refresher) # every second...
