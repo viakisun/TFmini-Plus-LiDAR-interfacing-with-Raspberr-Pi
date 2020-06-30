@@ -1,12 +1,14 @@
 import platform
 import tkinter as tk                # python 3
-# import odroid_wiringpi as wpi
+if platform.system() == "Linux" :
+    import odroid_wiringpi as wpi
+   
 from SprayMode import *
 
 class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
-        print("==================" + platform.system())
+        
 
 
         tk.Frame.__init__(self, parent)
@@ -17,8 +19,9 @@ class StartPage(tk.Frame):
         self.manualSprayOn = False;
 
         # Relay
-        # wpi.wiringPiSetup()
-        # wpi.pinMode(4, 1)
+        if platform.system() == "Linux" :
+            wpi.wiringPiSetup()
+            wpi.pinMode(4, 1)
         
         #상단메뉴
         frameTop = tk.Frame(self, relief="solid", bg="#222222", height=60)
@@ -46,10 +49,12 @@ class StartPage(tk.Frame):
 
     def sprayStart(self):
         if self.manualSprayOn :
-            # wpi.digitalWrite(4, 0)
+            if platform.system() == "Linux" :
+                wpi.digitalWrite(4, 0)
             self.manualSprayOn = False
         else :
-            # wpi.digitalWrite(4, 1)
+            if platform.system() == "Linux" :
+                wpi.digitalWrite(4, 1)
             self.manualSprayOn = True
 
     def changeSprayMode(self,sprayMode,btnObj):
