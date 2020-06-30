@@ -16,6 +16,7 @@ class StartPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
         wpi.wiringPiSetup()
+        wpi.digitalWrite(4, 0)
        
         frameButton = tk.Frame(self, relief="solid", bg="red", height=60)
         frameButton.pack(side="left", fill="both", expand=True)
