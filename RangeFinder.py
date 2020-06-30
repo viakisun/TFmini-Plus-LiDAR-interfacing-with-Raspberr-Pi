@@ -39,7 +39,7 @@ class RangeFinder():
                     self.curtime = time.time()
                     wpi.digitalWrite(4, 1)
                 else:
-                    if time.time() - self.curtime > self.controller.distanceModeSprayTime * 100 :
+                    if time.time() - self.curtime > self.controller.distanceModeSprayTime :
                         wpi.digitalWrite(4, 0)
 
                 if temperature != 0:
