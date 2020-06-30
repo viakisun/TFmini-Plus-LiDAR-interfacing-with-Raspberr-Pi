@@ -31,9 +31,6 @@ class ManualPage(tk.Frame):
 
         self.btnSprayOn.place(relx=0.22, rely=0.35)
         self.btnSprayOff.place(relx=0.55, rely=0.35)
-       
-        if platform.system() == "Linux" :
-            self.rangeFinder = RangeFinder(controller)
 
     def sprayOn(self):
         if platform.system() == "Linux" :
