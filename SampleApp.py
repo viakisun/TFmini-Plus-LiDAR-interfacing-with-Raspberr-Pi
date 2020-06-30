@@ -31,6 +31,7 @@ class SampleApp(tk.Tk):
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
+        self.attributes()
 
         self.frames = {}
         for F in (StartPage, DistanceModePage, PageTwo):
@@ -44,19 +45,17 @@ class SampleApp(tk.Tk):
             frame.grid(row=0, column=0, sticky="nsew")
 
         self.show_frame("StartPage")
+        
 
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
         frame = self.frames[page_name]
         frame.tkraise()
 
-
-
 if __name__ == "__main__":
     app = SampleApp()
-    app.title("천연살균의약처 방역 시스템")
+    app.title("천연살균의학처 방역 시스템")
     app.geometry("1024x600")
-    app.bind("<Escape>", app.attributes("-fullscreen", False))
+    app.attributes("-fullscreen",True)
     app.resizable(False, False)
     app.mainloop()
-    app.attributes("-zoomed",True)

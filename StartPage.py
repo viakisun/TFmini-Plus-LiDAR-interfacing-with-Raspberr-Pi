@@ -23,7 +23,6 @@ class StartPage(tk.Frame):
         lblMode = tk.Label(frameTop, fg="white", bg="#222222", height=3, textvariable=self.strSprayMode)
         lblMode.pack(side="left")
         
-        
         #모드버튼
         frameButton = tk.Frame(self, relief="solid", bg="white", height=60)
         frameButton.pack(side="left", fill="both", expand=True)
