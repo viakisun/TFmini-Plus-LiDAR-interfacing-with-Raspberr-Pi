@@ -76,14 +76,14 @@ class StartPage(tk.Frame):
     def startAuto(self):
         if self.controller.sprayMode == SprayMode.AUTO :
             self.sprayByTime()
-            threading.Timer(5, self.startAuto).start()
+            threading.Timer(self.controller.autoModeCycleTime * 60, self.startAuto).start()
 
     def sprayByTime(self):
         if self.curtime2 is None :
             self.curtime2 = time.time()
             wpi.digitalWrite(4, 1)
         else :
-            if time.time() - self.curtime2 > 2 :
+            if time.time() - self.curtime2 > self.controller.autoModeSprayTime :
                 wpi.digitalWrite(4, 0)
                 self.curtime2 = None
                 return True

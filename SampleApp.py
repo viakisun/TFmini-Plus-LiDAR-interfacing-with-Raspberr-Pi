@@ -52,8 +52,8 @@ class SampleApp(tk.Tk):
         self.MAX_DETECT_DISTANCE = 3.0
         self.MIN_DETECT_DISTANCE = 0.5
 
-        self.autoModeCycleTime = 1
-        self.autoModeSprayTime = 10
+        self.autoModeCycleTime = 0.1
+        self.autoModeSprayTime = 2
         self.MAX_AUTO_SPRAY_TIME = 30
         self.MIN_AUTO_SPRAY_TIME = 5
         self.MAX_AUTO_CYCLE_TIME = 10
