@@ -4,6 +4,7 @@ from StartPage import *
 from PageOne import *
 from PageTwo import *
 from DistanceModePage import *
+from SprayMode import *
 
 class SampleApp(tk.Tk):
 
@@ -23,6 +24,9 @@ class SampleApp(tk.Tk):
         self.imgBtnHome = tk.PhotoImage(file='images/btn_02.gif')
         self.imgBtnSave = tk.PhotoImage(file='images/btn_03.gif')
         self.imgBtnInit = tk.PhotoImage(file='images/btn_04.gif')
+
+        #기본값 관리
+        self.sprayMode = SprayMode.MANUAL
 
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible
@@ -45,12 +49,24 @@ class SampleApp(tk.Tk):
             frame.grid(row=0, column=0, sticky="nsew")
 
         self.show_frame("StartPage")
-        
 
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
         frame = self.frames[page_name]
         frame.tkraise()
+
+    def getSprayModeStr(self):
+        if self.sprayMode == SprayMode.DISTANCE :
+            return "거리인식 모드"
+        elif self.sprayMode == SprayMode.AUTO :
+            return "자동 모드"
+        elif self.sprayMode == SprayMode.MANUAL :
+            return "수동분사"
+        else :
+            return False
+
+    def setSprayMode(self, sprayMode):
+        self.sprayMode = sprayMode
 
 if __name__ == "__main__":
     app = SampleApp()
