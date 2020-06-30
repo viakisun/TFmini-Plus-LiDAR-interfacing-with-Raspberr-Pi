@@ -80,6 +80,8 @@ class StartPage(tk.Frame):
             if time.time() - self.curtime1 > 5 :
                 self.curtime1 = None
                 return True
+            else :
+                self.sprayByTime()
         self.after(10, self.startAuto)
 
 
