@@ -59,4 +59,4 @@ if __name__ == "__main__":
     app.bind("<Escape>", app.attributes("-fullscreen", False))
     app.resizable(False, False)
     app.mainloop()
-    app.attributes("-fullscreen",True)
+    app.attributes("-zoomed",True)

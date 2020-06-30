@@ -9,8 +9,7 @@ class WindowHome:
         self.window.title("천연살균의학처 방역 시스템")
         self.strSprayMode = StringVar()
         self.strSprayMode.set("수동분사")
-        
-        #        self.window.attributes("-fullscreen",True)
+        self.window.attributes("-fullscreen",True)
 
         #상단메뉴
         self.labelFont = font.Font(size=12, weight="bold")

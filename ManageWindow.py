@@ -9,4 +9,4 @@ class ManageWindow:
     @classmethod
     def getWindows(cls):
         ManageWindow.windowHome = WindowHome()
-        ManageWindow.windowDistance = WindowDistanceMode()
+#        ManageWindow.windowDistance = WindowDistanceMode()
