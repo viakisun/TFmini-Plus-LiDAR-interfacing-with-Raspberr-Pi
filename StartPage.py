@@ -6,7 +6,7 @@ from SprayMode import *
 class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
-        print("운영체재를 확인해 봅시다 : " + platform.system())
+        print("==================" + platform.system())
 
 
         tk.Frame.__init__(self, parent)
