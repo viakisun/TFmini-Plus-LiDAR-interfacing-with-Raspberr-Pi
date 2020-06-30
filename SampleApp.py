@@ -50,16 +50,13 @@ class SampleApp(tk.Tk):
         frame = self.frames[page_name]
         frame.tkraise()
 
+
+
 if __name__ == "__main__":
     app = SampleApp()
     app.title("천연살균의약처 방역 시스템")
     app.geometry("1024x600")
-    app.attributes("-fullscreen",True)
-    app.bind("<Escape>", end_fullscreen)
+    app.bind("<Escape>", app.attributes("-fullscreen", False))
     app.resizable(False, False)
-    app.mainloop()  
-
-
-def end_fullscreen(self, event=None):
-    #self.window.attributes("-fullscreen", False)
-    return "break"
+    app.mainloop()
+    app.attributes("-fullscreen",True)
