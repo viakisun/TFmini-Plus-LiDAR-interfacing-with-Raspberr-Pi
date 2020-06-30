@@ -40,7 +40,7 @@ class StartPage(tk.Frame):
         self.curtime1 = None
         self.curtime2 = None
 
-        self sprayByTime()
+        self.sprayByTime()
 
     def modeBtnCheck(self):
         self.btnMode1.configure(image = self.controller.imgBtnDistance01)
