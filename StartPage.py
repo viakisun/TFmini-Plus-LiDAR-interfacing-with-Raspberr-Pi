@@ -61,7 +61,6 @@ class StartPage(tk.Frame):
         self.modeBtnCheck()
 
     def refresher(self):
-        distance = self.rangeFinder.read()
-        print(str(distance))
         if self.controller.sprayMode == SprayMode.DISTANCE :
+            distance = self.rangeFinder.read()
             self.after(10, self.refresher) # every second...
