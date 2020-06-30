@@ -34,6 +34,7 @@ class RangeFinder():
                 temperature = (temperature/8) - 256
                 print("Distance:"+ str(distance))
                 print("Strength:" + str(strength))
+                print("허용거리는 : " + str(self.controller.distanceModeDetectDistance))
 
                 if distance < self.controller.distanceModeDetectDistance :
                     self.curtime = time.time()
