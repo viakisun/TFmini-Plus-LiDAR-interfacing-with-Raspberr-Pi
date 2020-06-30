@@ -54,6 +54,11 @@ class SampleApp(tk.Tk):
         self.MAX_DETECT_DISTANCE = 3.0
         self.MIN_DETECT_DISTANCE = 0.5
 
+        self.distanceModeSprayTime = 5.5
+        self.distanceModeDetectDistance = 1.0
+
+        
+
 
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible

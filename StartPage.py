@@ -60,11 +60,11 @@ class StartPage(tk.Frame):
         self.modeBtnCheck()
 
     def refresher(self):
-        print("인식모드 시작")
+        print("detectmode start")
         if self.controller.sprayMode == SprayMode.DISTANCE :
             if platform.system() == "Linux" :
                 distance = self.rangeFinder.read()
             self.after(10, self.refresher) # every second...
 
     def startAuto(self):
-        print("오토모드 시작")
+        print("automode start")
