@@ -3,7 +3,6 @@
 import platform
 import tkinter as tk                # python 3
 if platform.system() == "Linux" :
-    import odroid_wiringpi as wpi
     from RangeFinder import *
 
 from SprayMode import *
@@ -14,12 +13,7 @@ class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-
-        # Relay
-        if platform.system() == "Linux" :
-            wpi.wiringPiSetup()
-            wpi.pinMode(4, 1)
-        
+       
         frameButton = tk.Frame(self, relief="solid", bg="red", height=60)
         frameButton.pack(side="left", fill="both", expand=True)
         background_label = tk.Label(frameButton, image=controller.img01)
@@ -52,17 +46,6 @@ class StartPage(tk.Frame):
             self.btnMode2.configure(image = self.controller.imgBtnAuto02)
         elif self.controller.sprayMode == SprayMode.MANUAL :
             self.btnMode3.configure(image = self.controller.imgBtnManual02)
-
-    def sprayStart(self):
-        if self.manualSprayOn :
-            if platform.system() == "Linux" :
-                wpi.digitalWrite(4, 0)
-            self.manualSprayOn = False
-        else :
-            if platform.system() == "Linux" :
-                wpi.digitalWrite(4, 1)
-            self.manualSprayOn = True
-
 
     def changeSprayMode(self,sprayMode,btnObj):
         if sprayMode == SprayMode.DISTANCE :
