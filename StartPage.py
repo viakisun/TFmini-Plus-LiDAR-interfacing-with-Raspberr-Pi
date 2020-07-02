@@ -17,11 +17,12 @@ class StartPage(tk.Frame):
         self.controller = controller
         wpi.wiringPiSetup()
         wpi.digitalWrite(4, 0)
-       
+
         frameButton = tk.Frame(self, relief="solid", bg="red", height=60)
         frameButton.pack(side="left", fill="both", expand=True)
         background_label = tk.Label(frameButton, image=controller.img01)
         background_label.place(x=0, y=0, relwidth=1, relheight=1)
+        frameButton.config(cursor="none")
 
         self.btnMode1 = tk.Button(frameButton, image=controller.imgBtnDistance01, relief="ridge", command=lambda: self.changeSprayMode(SprayMode.DISTANCE,self.btnMode1), bd=0, bg="#0C4323")
         self.btnMode2 = tk.Button(frameButton, image=controller.imgBtnAuto01, relief="solid", command=lambda: self.changeSprayMode(SprayMode.AUTO,self.btnMode2), bd=0, bg="#0C4323")

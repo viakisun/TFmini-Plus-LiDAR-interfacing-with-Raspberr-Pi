@@ -9,6 +9,7 @@ class RangeFinder():
         self.curtime = 0
         self.controller = controller
 
+
         try:
             if self.ser.isOpen() == False:
                 self.ser.open()
