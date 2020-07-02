@@ -70,7 +70,6 @@ class StartPage(tk.Frame):
         print("detectmode start")
         if self.controller.sprayMode == SprayMode.DISTANCE :
             if platform.system() == "Linux" :
-                print("Test mode ========== ")
                 distance = self.rangeFinder.read()
             self.after(10, self.refresher) # every second...
 

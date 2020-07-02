@@ -19,6 +19,7 @@ class RangeFinder():
 
     def read(self):
         counter = self.ser.in_waiting # count the number of bytes of the serial port
+        print("test Value : " + str(counter))
         if counter > 8:
             bytes_serial = self.ser.read(9)
             self.ser.reset_input_buffer()
