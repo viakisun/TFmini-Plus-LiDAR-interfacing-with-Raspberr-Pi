@@ -9,7 +9,6 @@ if platform.system() == "Linux" :
 from SprayMode import *
 import odroid_wiringpi as wpi
 
-
 class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -20,7 +19,7 @@ class StartPage(tk.Frame):
 
         frameButton = tk.Frame(self, relief="solid", bg="red", height=60)
         frameButton.pack(side="left", fill="both", expand=True)
-        background_label = tk.Label(frameButton, image=controller.img01)
+        background_label = tk.Label(frameButton, image=controller.imgBgEmpty)
         background_label.place(x=0, y=0, relwidth=1, relheight=1)
         frameButton.config(cursor="none")
 

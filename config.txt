@@ -1,4 +1,4 @@
-distanceModeSprayTime:2.5
-distanceModeDetectDistance:1
-autoModeCycleTime:1
-autoModeSprayTime:10
+detect_spray_duration_sec:3
+detect_distance_meter:1
+auto_cycle_min:1
+auto_spray_duration_sec:10

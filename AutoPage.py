@@ -1,6 +1,7 @@
 #-*- coding:utf-8 -*-
 import tkinter as tk                # python 3
 from tkinter import font  as tkfont # python 3
+from config_value import ConfigValue
 
 class AutoPage(tk.Frame):
 
@@ -18,7 +19,7 @@ class AutoPage(tk.Frame):
         
         frame = tk.Frame(self, relief="solid", bg="red", height=60)
         frame.pack(side="left", fill="both", expand=True)
-        background_label = tk.Label(frame, image=controller.img03)
+        background_label = tk.Label(frame, image=controller.imgBgAuto)
         background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         btnHome = tk.Button(frame, relief="solid", bd=0, image=controller.imgBtnBack, bg="#0C4323", command=lambda: controller.show_frame("StartPage"))
@@ -45,21 +46,21 @@ class AutoPage(tk.Frame):
         btnTimeDown.place(relx=0.76, rely=0.38 + 0.22)
 
     def upTime(self):
-        if self.controller.autoModeSprayTime < self.controller.MAX_AUTO_SPRAY_TIME :
+        if self.controller.autoModeSprayTime < ConfigValue.MAX_AUTO_SPRAY_TIME :
             self.controller.autoModeSprayTime += 5
         self.sprayTimeVar.set(str(self.controller.autoModeSprayTime))
 
     def downTime(self):
-        if self.controller.autoModeSprayTime > self.controller.MIN_AUTO_SPRAY_TIME :
+        if self.controller.autoModeSprayTime > ConfigValue.MIN_AUTO_SPRAY_TIME :
             self.controller.autoModeSprayTime -= 5
         self.sprayTimeVar.set(str(self.controller.autoModeSprayTime))
 
     def upCycleTime(self):
-        if self.controller.autoModeCycleTime < self.controller.MAX_AUTO_CYCLE_TIME :
+        if self.controller.autoModeCycleTime < ConfigValue.MAX_AUTO_CYCLE_TIME :
             self.controller.autoModeCycleTime += 1
         self.cycleTimeVar.set(str(round(self.controller.autoModeCycleTime,1)))
 
     def downCycleTime(self):
-        if self.controller.autoModeCycleTime > self.controller.MIN_AUTO_CYCLE_TIME :
+        if self.controller.autoModeCycleTime > ConfigValue.MIN_AUTO_CYCLE_TIME :
             self.controller.autoModeCycleTime -= 1
         self.cycleTimeVar.set(str(round(self.controller.autoModeCycleTime,1)))

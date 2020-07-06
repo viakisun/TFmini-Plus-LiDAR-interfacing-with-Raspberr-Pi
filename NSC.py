@@ -2,34 +2,32 @@
 
 import tkinter as tk                # python 3
 from tkinter import font  as tkfont # python 3
-from StartPage import *
+from startpage import *
 from DistanceModePage import *
 from ManualPage import *
 from AutoPage import *
 from SprayMode import *
 
-class SampleApp(tk.Tk):
+class MainApp(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
-        #폰트설정
-        self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
-        self.modebutton_font = tkfont.Font(size=12, weight="bold")
-        self.label_font_01 = tkfont.Font(size=12, weight="bold")
-        self.label_font_02 = tkfont.Font(size=18, weight="bold")
-        self.label_font_03 = tkfont.Font(size=60)
-        self.label_font_04 = tkfont.Font(size=20)
+        # test code
+        config = ConfigManager()
+
+        print(config.detect_spray_duration_sec)
+
+        print(config.get_value("detect_spray_duration_sec"))
+        config.set_value("detect_spray_duration_sec", 5)
+        print(config.get_value("detect_spray_duration_sec"))
 
         #이미지 관리
         self.settingBtnImg = tk.PhotoImage(file='images/btn_01.png') #PhotoImage객체 생성
-        self.imgBtnHome = tk.PhotoImage(file='images/btn_02.gif')
-        self.imgBtnSave = tk.PhotoImage(file='images/btn_03.gif')
-        self.imgBtnInit = tk.PhotoImage(file='images/btn_04.gif')
-        self.img01 = tk.PhotoImage(file='images/bg_01.png')
-        self.img02 = tk.PhotoImage(file='images/bg_02.png')
-        self.img03 = tk.PhotoImage(file='images/bg_03.png')
-        self.img04 = tk.PhotoImage(file='images/bg_04.png')
+        self.imgBgEmpty = tk.PhotoImage(file='images/bg_empty.png')
+        self.imgBgDetect = tk.PhotoImage(file='images/bg_detect.png')
+        self.imgBgAuto = tk.PhotoImage(file='images/bg_auto.png')
+        self.imgBgManual = tk.PhotoImage(file='images/bg_manual.png')
 
         self.imgBtnDistance01 = tk.PhotoImage(file='images/btnDistance01.png')
         self.imgBtnDistance02 = tk.PhotoImage(file='images/btnDistance02.png')
@@ -40,25 +38,8 @@ class SampleApp(tk.Tk):
         self.imgBtnBack = tk.PhotoImage(file='images/btnBack.png')
         self.imgBtnUp = tk.PhotoImage(file='images/btnUp.png')
         self.imgBtnDown = tk.PhotoImage(file='images/btnDown.png')
-        self.imgBtnSprayOn = tk.PhotoImage(file='images/btnSprayOn.png')
-        self.imgBtnSprayOff = tk.PhotoImage(file='images/btnSprayOff.png')
-
 
         self.sprayMode = SprayMode.MANUAL
-        self.distanceModeSprayTime = 2.5
-        self.distanceModeDetectDistance = 1.0
-        self.MAX_SPRAY_TIME = 10.0
-        self.MIN_SPRAY_TIME = 1.0
-        self.MAX_DETECT_DISTANCE = 3.0
-        self.MIN_DETECT_DISTANCE = 0.5
-
-        self.autoModeCycleTime = 1
-        self.autoModeSprayTime = 10
-        self.MAX_AUTO_SPRAY_TIME = 30
-        self.MIN_AUTO_SPRAY_TIME = 5
-        self.MAX_AUTO_CYCLE_TIME = 10
-        self.MIN_AUTO_CYCLE_TIME = 1
-
 
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible
@@ -92,7 +73,7 @@ class SampleApp(tk.Tk):
         self.sprayMode = sprayMode
 
 if __name__ == "__main__":
-    app = SampleApp()
+    app = MainApp()
     app.title("천연살균의학처 방역 시스템")
     app.geometry("1024x600")
     app.attributes("-fullscreen",True)

@@ -1,41 +1,37 @@
 #-*- coding:utf-8 -*-
 
-import platform
 import tkinter as tk                # python 3
-if platform.system() == "Linux" :
-    import odroid_wiringpi as wpi
 
 from SprayMode import *
 
-class ManualPage(tk.Frame):
+class ManualPage(SettingPage):
 
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        self.controller = controller
+    def __init__(self, parent, controller, background_img):
+        super(self, ).__init__(self, parent, background_img)
+        self.init_UI()
+        self.init_WPI()
 
-        # Relay
-        if platform.system() == "Linux" :
+    def init_UI(self):
+        COLOR_BUTTON_BACKGROUND = "#0C4323"
+        RELIEF_STYLE = "ridge"
+
+        img_btn_spray_on = tk.PhotoImage(file='images/btn_spray_on.png')
+        img_btn_spray_off = tk.PhotoImage(file='images/btn_spray_off.png')
+
+        btn_spray_on = tk.Button(frame, image=img_btn_spray_on, relief=RELIEF_STYLE, bd=0, bg=COLOR_BUTTON_BACKGROUND, command=lambda: self.spray_on())
+        btn_spray_off = tk.Button(frame, image=img_btn_spray_off, relief=RELIEF_STYLE, bd=0, bg=COLOR_BUTTON_BACKGROUND, command=lambda: self.spray_off())
+        btn_spray_on.place(relx=0.22, rely=0.35)
+        btn_spray_off.place(relx=0.55, rely=0.35)
+
+    def init_WPI(self):
+        if super().is_linux_system():
             wpi.wiringPiSetup()
             wpi.pinMode(4, 1)
-        
-        frame = tk.Frame(self, relief="solid", bg="red", height=60)
-        frame.pack(side="left", fill="both", expand=True)
-        background_label = tk.Label(frame, image=controller.img04)
-        background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-        btnHome = tk.Button(frame, relief="solid", bd=0, image=controller.imgBtnBack, bg="#0C4323", command=lambda: controller.show_frame("StartPage"))
-        btnHome.place(relx=0.93, rely=0.03)
-
-        self.btnSprayOn = tk.Button(frame, image=controller.imgBtnSprayOn, relief="ridge", bd=0, bg="#0C4323", command=lambda: self.sprayOn())
-        self.btnSprayOff = tk.Button(frame, image=controller.imgBtnSprayOff, relief="ridge", bd=0, bg="#0C4323", command=lambda: self.sprayOff())
-
-        self.btnSprayOn.place(relx=0.22, rely=0.35)
-        self.btnSprayOff.place(relx=0.55, rely=0.35)
-
-    def sprayOn(self):
-        if platform.system() == "Linux" :
+    def spray_on(self):
+        if super().is_linux_system():
             wpi.digitalWrite(4, 1)
 
-    def sprayOff(self):
-        if platform.system() == "Linux" :
+    def spray_off(self):
+        if super().is_linux_system():
             wpi.digitalWrite(4, 0)

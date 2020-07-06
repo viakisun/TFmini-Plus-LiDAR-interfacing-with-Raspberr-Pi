@@ -18,7 +18,7 @@ class DistanceModePage(tk.Frame):
         
         frame = tk.Frame(self, relief="solid", bg="red", height=60)
         frame.pack(side="left", fill="both", expand=True)
-        background_label = tk.Label(frame, image=controller.img02)
+        background_label = tk.Label(frame, image=controller.imgBgDetect)
         background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         btnHome = tk.Button(frame, relief="solid", bd=0, image=controller.imgBtnBack, bg="#0C4323", command=lambda: controller.show_frame("StartPage"))
