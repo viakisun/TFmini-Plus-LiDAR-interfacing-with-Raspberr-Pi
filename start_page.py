@@ -3,14 +3,14 @@
 import tkinter as tk                # python 3
 import threading
 import platform
-from SettingPage import *
+from setting_page import *
 if platform.system() == "Linux" :
-    from RangeFinder import *
+    from range_finder import *
     import odroid_wiringpi as wpi
 
 import time
 
-from SprayMode import *
+from spray_mode import *
 from config_manager import *
 
 

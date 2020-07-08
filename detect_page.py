@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 import tkinter as tk                # python 3
 from tkinter import font  as tkfont # python 3
-from SettingPage import *
+from setting_page import *
 from config_manager import *
 from config_value import ConfigValue
 

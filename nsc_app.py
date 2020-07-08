@@ -2,11 +2,11 @@
 
 import tkinter as tk                # python 3
 from tkinter import font  as tkfont # python 3
-from startpage import StartPage
-from detectpage import *
-from ManualPage import *
-from autopage import AutoPage
-from SprayMode import *
+from start_page import StartPage
+from detect_page import *
+from manual_page import *
+from auto_page import AutoPage
+from spray_mode import *
 
 class MainApp(tk.Tk):
 

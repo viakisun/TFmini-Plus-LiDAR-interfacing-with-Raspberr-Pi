@@ -2,7 +2,7 @@
 import tkinter as tk                # python 3
 from tkinter import font  as tkfont # python 3
 from config_value import ConfigValue
-from SettingPage import *
+from setting_page import *
 from config_manager import ConfigManager
 
 class AutoPage(SettingPage):

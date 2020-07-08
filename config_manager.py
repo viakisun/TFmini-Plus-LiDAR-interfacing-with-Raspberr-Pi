@@ -1,4 +1,4 @@
-from SprayMode import *
+from spray_mode import *
 
 class MetaSingleton( type): 
     _instance = {}

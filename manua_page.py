@@ -1,6 +1,6 @@
 #-*- coding:utf-8 -*-
 import tkinter as tk                # python 3
-from SettingPage import *
+from setting_page import *
 
 class ManualPage(SettingPage):
 
