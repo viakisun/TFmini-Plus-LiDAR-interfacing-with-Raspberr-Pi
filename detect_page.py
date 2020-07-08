@@ -23,23 +23,23 @@ class DetectPage(SettingPage):
         self.btnHome.place(relx=0.93, rely=0.03)
 
         #인식거리 조절
-        lblDistance = tk.Label(self.frame, fg="white", bg="#467E39", font=tkfont.Font(size=50, weight="bold"), textvariable=self.detectDistanceVar, anchor="e", padx=10)
+        lblDistance = tk.Label(self.frame, fg="white", bg=self.COLOR_BUTTON_BACKGROUND, font=tkfont.Font(size=50, weight="bold"), textvariable=self.detectDistanceVar, anchor="e", padx=10)
         lblDistance.place(relx=0.45, rely=0.36, relwidth=0.18, relheight=0.18)
 
-        btnDistanceUp = tk.Button(self.frame, relief="solid", bd=0, command=lambda: self.set_distance_up(), image=self.imgBtnUp, bg=self.COLOR_BUTTON_BACKGROUND)
+        btnDistanceUp = tk.Button(self.frame, relief=tk.SOLID, bd=0, highlightthickness=0, command=lambda: self.set_distance_up(), image=self.imgBtnUp, bg=self.COLOR_BUTTON_BACKGROUND)
         btnDistanceUp.place(relx=0.66, rely=0.38)
         
-        btnDistanceDown = tk.Button(self.frame, relief="solid", bd=0, command=lambda: self.set_distance_down(), image=self.imgBtnDown, bg=self.COLOR_BUTTON_BACKGROUND)
+        btnDistanceDown = tk.Button(self.frame, relief=tk.SOLID, bd=0, highlightthickness=0, command=lambda: self.set_distance_down(), image=self.imgBtnDown, bg=self.COLOR_BUTTON_BACKGROUND)
         btnDistanceDown.place(relx=0.76, rely=0.38)
        
         #오른쪽 분사시간 조절
-        lblTime = tk.Label(self.frame, fg="white", bg="#467E39", font=tkfont.Font(size=50, weight="bold"), textvariable=self.sprayTimeVar, anchor="e", padx=10)
+        lblTime = tk.Label(self.frame, fg="white", bg=self.COLOR_BUTTON_BACKGROUND, font=tkfont.Font(size=50, weight="bold"), textvariable=self.sprayTimeVar, anchor="e", padx=10)
         lblTime.place(relx=0.45, rely=0.36 + 0.22, relwidth=0.18, relheight=0.18)
 
-        btnTimeUp = tk.Button(self.frame, image=self.imgBtnUp, relief="solid", bd=0, bg=self.COLOR_BUTTON_BACKGROUND, command=lambda: self.upTime())
+        btnTimeUp = tk.Button(self.frame, image=self.imgBtnUp, relief=tk.SOLID, bd=0, highlightthickness=0, bg=self.COLOR_BUTTON_BACKGROUND, command=lambda: self.upTime())
         btnTimeUp.place(relx=0.66, rely=0.38 + 0.22)
         
-        btnTimeDown = tk.Button(self.frame, image=self.imgBtnDown, relief="solid", bd=0, bg=self.COLOR_BUTTON_BACKGROUND, command=lambda: self.downTime())
+        btnTimeDown = tk.Button(self.frame, image=self.imgBtnDown, relief=tk.SOLID, bd=0, highlightthickness=0, bg=self.COLOR_BUTTON_BACKGROUND, command=lambda: self.downTime())
         btnTimeDown.place(relx=0.76, rely=0.38 + 0.22)
 
     def upTime(self):

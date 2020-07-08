@@ -23,17 +23,17 @@ class AutoPage(SettingPage):
         self.btnHome.place(relx=0.93, rely=0.03)
         
         #분사주기 조절
-        lblCycleTime = tk.Label(self.frame, fg="white", bg="#467E39", font=tkfont.Font(size=50, weight="bold"), textvariable=self.cycleTimeVar, anchor="e", padx=10)
+        lblCycleTime = tk.Label(self.frame, fg="white", bg=self.COLOR_BUTTON_BACKGROUND, font=tkfont.Font(size=50, weight="bold"), textvariable=self.cycleTimeVar, anchor="e", padx=10)
         lblCycleTime.place(relx=0.45, rely=0.36, relwidth=0.18, relheight=0.18)
 
-        btnCycleTimeUp = tk.Button(self.frame, relief="solid", bd=0, command=lambda: self.upCycleTime(), image=self.imgBtnUp, bg=self.COLOR_BUTTON_BACKGROUND)
+        btnCycleTimeUp = tk.Button(self.frame, relief="solid", bd=0, highlightthickness=0, command=lambda: self.upCycleTime(), image=self.imgBtnUp, bg=self.COLOR_BUTTON_BACKGROUND)
         btnCycleTimeUp.place(relx=0.66, rely=0.38)
         
-        btnCycleTimeDown = tk.Button(self.frame, relief="solid", bd=0, command=lambda: self.downCycleTime(), image=self.imgBtnDown, bg=self.COLOR_BUTTON_BACKGROUND)
+        btnCycleTimeDown = tk.Button(self.frame, relief="solid", bd=0, highlightthickness=0, command=lambda: self.downCycleTime(), image=self.imgBtnDown, bg=self.COLOR_BUTTON_BACKGROUND)
         btnCycleTimeDown.place(relx=0.76, rely=0.38)
        
         #분사시간 조절
-        lblTime = tk.Label(self.frame, fg="white", bg="#467E39", font=tkfont.Font(size=50, weight="bold"), textvariable=self.sprayTimeVar, anchor="e", padx=10)
+        lblTime = tk.Label(self.frame, fg="white", bg=self.COLOR_BUTTON_BACKGROUND, font=tkfont.Font(size=50, weight="bold"), textvariable=self.sprayTimeVar, anchor="e", padx=10)
         lblTime.place(relx=0.45, rely=0.36 + 0.22, relwidth=0.18, relheight=0.18)
 
         btnTimeUp = tk.Button(self.frame, image=self.imgBtnUp, relief="solid", bd=0, bg=self.COLOR_BUTTON_BACKGROUND, command=lambda: self.upTime())

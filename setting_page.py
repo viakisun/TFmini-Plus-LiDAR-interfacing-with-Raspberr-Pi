@@ -15,7 +15,7 @@ class SettingPage(tk.Frame):
         background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         self.imgBtnBack = tk.PhotoImage(file='images/btnBack.png')
-        self.btnHome = tk.Button(self.frame, relief="solid", bd=0, image=controller.imgBtnBack, bg=self.COLOR_BUTTON_BACKGROUND, command=lambda: controller.show_frame("StartPage"))
+        self.btnHome = tk.Button(self.frame, relief="solid", bd=0, highlightthickness=0, image=controller.imgBtnBack, bg=self.COLOR_BUTTON_BACKGROUND, command=lambda: controller.show_frame("StartPage"))
 
         self.imgBtnUp = tk.PhotoImage(file='images/btnUp.png')
         self.imgBtnDown = tk.PhotoImage(file='images/btnDown.png')
