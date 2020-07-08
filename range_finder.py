@@ -1,14 +1,13 @@
 import serial
 import odroid_wiringpi as wpi
 import time
+from config_manager import *
 
 class RangeFinder():
-    def __init__(self, controller):
+    def __init__(self):
         self.ser = serial.Serial("/dev/ttyS1", 115200)
         wpi.wiringPiSetup()
         self.curtime = 0
-        self.controller = controller
-
 
         try:
             if self.ser.isOpen() == False:
@@ -36,11 +35,11 @@ class RangeFinder():
                 print("Distance:"+ str(distance))
                 print("Strength:" + str(strength))
 
-                if distance < (self.controller.distanceModeDetectDistance * 100) :
+                if distance < (float(ConfigManager().get_value("detect_distance_meter")) * 100) :
                     self.curtime = time.time()
                     wpi.digitalWrite(4, 1)
                 else:
-                    if time.time() - self.curtime > self.controller.distanceModeSprayTime :
+                    if time.time() - self.curtime > float(ConfigManager().get_value("detect_spray_duration_sec")) :
                         wpi.digitalWrite(4, 0)
 
                 if temperature != 0:
