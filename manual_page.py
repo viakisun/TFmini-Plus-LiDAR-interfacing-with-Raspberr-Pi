@@ -2,6 +2,9 @@
 import tkinter as tk                # python 3
 from setting_page import *
 
+if platform.system() == "Linux" :
+    import odroid_wiringpi as wpi
+
 class ManualPage(SettingPage):
 
     def __init__(self, parent, controller, background_img):
