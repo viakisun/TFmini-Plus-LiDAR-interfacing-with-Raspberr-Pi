@@ -19,7 +19,6 @@ class RangeFinder():
 
     def read(self):
         counter = self.ser.in_waiting # count the number of bytes of the serial port
-        print("test Value : " + str(counter))
         if counter > 8:
             bytes_serial = self.ser.read(9)
             self.ser.reset_input_buffer()
@@ -32,8 +31,6 @@ class RangeFinder():
                 strength = bytes_serial[4] + bytes_serial[5]*256
                 temperature = bytes_serial[6] + bytes_serial[7]*256
                 temperature = (temperature/8) - 256
-                print("Distance:"+ str(distance))
-                print("Strength:" + str(strength))
 
                 if distance < (float(ConfigManager().get_value("detect_distance_meter")) * 100) :
                     self.curtime = time.time()
@@ -42,8 +39,8 @@ class RangeFinder():
                     if time.time() - self.curtime > float(ConfigManager().get_value("detect_spray_duration_sec")) :
                         wpi.digitalWrite(4, 0)
 
-                if temperature != 0:
-                    print("Temperature:" + str(temperature))
+                # if temperature != 0:
+                #     print("Temperature:" + str(temperature))
 
                 self.ser.reset_input_buffer()
 

@@ -54,23 +54,17 @@ class StartPage(SettingPage):
         self.curtime2 = None
 
     def modeBtnCheck(self):
-        print("modeBtnCheck")
-
         self.btnMode1.configure(image = self.imgBtnDetect01)
         self.btnMode2.configure(image = self.imgBtnAuto01)
         self.btnMode3.configure(image = self.imgBtnManual01)
 
         spray_mode = ConfigManager().get_value("spray_mode")
-        print(spray_mode)
        
         if spray_mode == SprayMode.DETECT :
-            print("인식모드 선택")
             self.btnMode1.configure(image = self.imgBtnDetect02)
         elif spray_mode == SprayMode.AUTO :
-            print("자동모드 선택")
             self.btnMode2.configure(image = self.imgBtnAuto02)
         elif spray_mode == SprayMode.MANUAL :
-            print("수동모드 선택")
             self.btnMode3.configure(image = self.imgBtnManual02)
 
     def init_WPI(self):
@@ -87,11 +81,7 @@ class StartPage(SettingPage):
         elif str == "SprayMode.MANUAL":
             return SprayMode.MANUAL
 
-    def test(self,str):
-        print(str)
-
     def changeSprayMode(self, sprayMode, btnObj):
-        print("changeSprayMode")
         ConfigManager().set_value("spray_mode", sprayMode)
 
         if sprayMode == SprayMode.DETECT :
