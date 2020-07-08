@@ -1,3 +1,5 @@
+from SprayMode import *
+
 class MetaSingleton( type): 
     _instance = {}
     
@@ -14,7 +16,8 @@ class ConfigManager(metaclass = MetaSingleton):
             "detect_spray_duration_sec": 2.5,
             "detect_distance_meter": 1.0,
             "auto_cycle_min": 1,
-            "auto_spray_duration_sec": 10
+            "auto_spray_duration_sec": 10,
+            "spray_mode": SprayMode.MANUAL
         }
         self.read()
 

@@ -37,4 +37,6 @@
 from config_manager import *
 
 c1 = ConfigManager()
-print(c1.get_value('detect_spray_duration_sec'))
+print(c1.get_value('spray_mode'))
+
+

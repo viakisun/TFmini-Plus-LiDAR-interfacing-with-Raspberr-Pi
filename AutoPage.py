@@ -2,65 +2,102 @@
 import tkinter as tk                # python 3
 from tkinter import font  as tkfont # python 3
 from config_value import ConfigValue
+from SettingPage import *
+from config_manager import ConfigManager
 
-class AutoPage(tk.Frame):
+class AutoPage(SettingPage):
 
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
+    def __init__(self, parent, controller, background_img):
+        super().__init__(parent, controller, background_img)
         self.controller = controller
+        self.init_UI()
 
-        self.sprayTime = controller.autoModeSprayTime
+
+    def init_UI(self):
+
         self.sprayTimeVar = tk.StringVar()
-        self.sprayTimeVar.set(str(self.sprayTime))
+        self.sprayTimeVar.set(str(ConfigManager().get_value("auto_spray_duration_sec")))
 
-        self.cycleTime = controller.autoModeCycleTime
         self.cycleTimeVar = tk.StringVar()
-        self.cycleTimeVar.set(str(self.cycleTime))
+        self.cycleTimeVar.set(str(ConfigManager().get_value("auto_cycle_min")))
+        self.btnHome.place(relx=0.93, rely=0.03)
         
-        frame = tk.Frame(self, relief="solid", bg="red", height=60)
-        frame.pack(side="left", fill="both", expand=True)
-        background_label = tk.Label(frame, image=controller.imgBgAuto)
-        background_label.place(x=0, y=0, relwidth=1, relheight=1)
-
-        btnHome = tk.Button(frame, relief="solid", bd=0, image=controller.imgBtnBack, bg="#0C4323", command=lambda: controller.show_frame("StartPage"))
-        btnHome.place(relx=0.93, rely=0.03)
-
         #분사주기 조절
-        lblCycleTime = tk.Label(frame, fg="white", bg="#467E39", font=tkfont.Font(size=50, weight="bold"), textvariable=self.cycleTimeVar, anchor="e", padx=10)
+        lblCycleTime = tk.Label(self.frame, fg="white", bg="#467E39", font=tkfont.Font(size=50, weight="bold"), textvariable=self.cycleTimeVar, anchor="e", padx=10)
         lblCycleTime.place(relx=0.45, rely=0.36, relwidth=0.18, relheight=0.18)
 
-        btnCycleTimeUp = tk.Button(frame, relief="solid", bd=0, command=lambda: self.upCycleTime(), image=controller.imgBtnUp, bg="#0C4323")
+        btnCycleTimeUp = tk.Button(self.frame, relief="solid", bd=0, command=lambda: self.upCycleTime(), image=self.imgBtnUp, bg=self.COLOR_BUTTON_BACKGROUND)
         btnCycleTimeUp.place(relx=0.66, rely=0.38)
         
-        btnCycleTimeDown = tk.Button(frame, relief="solid", bd=0, command=lambda: self.downCycleTime(), image=controller.imgBtnDown, bg="#0C4323")
+        btnCycleTimeDown = tk.Button(self.frame, relief="solid", bd=0, command=lambda: self.downCycleTime(), image=self.imgBtnDown, bg=self.COLOR_BUTTON_BACKGROUND)
         btnCycleTimeDown.place(relx=0.76, rely=0.38)
        
         #분사시간 조절
-        lblTime = tk.Label(frame, fg="white", bg="#467E39", font=tkfont.Font(size=50, weight="bold"), textvariable=self.sprayTimeVar, anchor="e", padx=10)
+        lblTime = tk.Label(self.frame, fg="white", bg="#467E39", font=tkfont.Font(size=50, weight="bold"), textvariable=self.sprayTimeVar, anchor="e", padx=10)
         lblTime.place(relx=0.45, rely=0.36 + 0.22, relwidth=0.18, relheight=0.18)
 
-        btnTimeUp = tk.Button(frame, image=controller.imgBtnUp, relief="solid", bd=0, bg="#0C4323", command=lambda: self.upTime())
+        btnTimeUp = tk.Button(self.frame, image=self.imgBtnUp, relief="solid", bd=0, bg=self.COLOR_BUTTON_BACKGROUND, command=lambda: self.upTime())
         btnTimeUp.place(relx=0.66, rely=0.38 + 0.22)
         
-        btnTimeDown = tk.Button(frame, image=controller.imgBtnDown, relief="solid", bd=0, bg="#0C4323", command=lambda: self.downTime())
+        btnTimeDown = tk.Button(self.frame, image=self.imgBtnDown, relief="solid", bd=0, bg=self.COLOR_BUTTON_BACKGROUND, command=lambda: self.downTime())
         btnTimeDown.place(relx=0.76, rely=0.38 + 0.22)
 
+
     def upTime(self):
-        if self.controller.autoModeSprayTime < ConfigValue.MAX_AUTO_SPRAY_TIME :
-            self.controller.autoModeSprayTime += 5
-        self.sprayTimeVar.set(str(self.controller.autoModeSprayTime))
+        ATTRIBUTE_ = "auto_spray_duration_sec"
+        INCREMENT_ = 5
+        MAX_ = 30
+
+        value_ = self.get_value(ATTRIBUTE_)
+        str_value_ = str(value_ + INCREMENT_)
+
+        if value_ < MAX_ :
+            self.set_value(ATTRIBUTE_, str_value_)
+            self.sprayTimeVar.set(str_value_)
 
     def downTime(self):
-        if self.controller.autoModeSprayTime > ConfigValue.MIN_AUTO_SPRAY_TIME :
-            self.controller.autoModeSprayTime -= 5
-        self.sprayTimeVar.set(str(self.controller.autoModeSprayTime))
+        ATTRIBUTE_ = "auto_spray_duration_sec"
+        INCREMENT_ = 5
+        MIN_ = 5
+
+        value_ = self.get_value(ATTRIBUTE_)
+        str_value_ = str(value_ - INCREMENT_)
+
+        if value_ > MIN_ :
+            self.set_value(ATTRIBUTE_, str_value_)
+            self.sprayTimeVar.set(str_value_)
 
     def upCycleTime(self):
-        if self.controller.autoModeCycleTime < ConfigValue.MAX_AUTO_CYCLE_TIME :
-            self.controller.autoModeCycleTime += 1
-        self.cycleTimeVar.set(str(round(self.controller.autoModeCycleTime,1)))
+        ATTRIBUTE_ = "auto_cycle_min"
+        INCREMENT_ = 1
+        MAX_ = 10
+
+        value_ = self.get_value(ATTRIBUTE_)
+        str_value_ = str(value_ + INCREMENT_)
+
+        if value_ < MAX_ :
+            self.set_value(ATTRIBUTE_, str_value_)
+            self.cycleTimeVar.set(str_value_)
 
     def downCycleTime(self):
-        if self.controller.autoModeCycleTime > ConfigValue.MIN_AUTO_CYCLE_TIME :
-            self.controller.autoModeCycleTime -= 1
-        self.cycleTimeVar.set(str(round(self.controller.autoModeCycleTime,1)))
+        ATTRIBUTE_ = "auto_cycle_min"
+        INCREMENT_ = 1
+        MIN_ = 1
+
+        value_ = self.get_value(ATTRIBUTE_)
+        str_value_ = str(value_ - INCREMENT_)
+
+        if value_ > MIN_ :
+            self.set_value(ATTRIBUTE_, str_value_)
+            self.cycleTimeVar.set(str_value_)
+
+
+        # if self.controller.autoModeCycleTime > ConfigValue.MIN_AUTO_CYCLE_TIME :
+        #     self.controller.autoModeCycleTime -= 1
+        # self.cycleTimeVar.set(str(round(self.controller.autoModeCycleTime,1)))
+
+    def get_value(self, attribute_):
+        return int(ConfigManager().get_value(attribute_))
+
+    def set_value(self, attribute_, value_):
+        ConfigManager().set_value(attribute_, value_)       
