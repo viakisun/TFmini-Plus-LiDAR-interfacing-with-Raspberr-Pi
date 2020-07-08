@@ -33,12 +33,12 @@ class StartPage(SettingPage):
         self.settingBtnImg = tk.PhotoImage(file='images/btn_01.png')
 
         
-        self.btnMode1 = tk.Button(self.frame, image=self.imgBtnDetect01, relief=tk.SOLID, command=lambda: self.changeSprayMode(SprayMode.DETECT,self.btnMode1), bd=0, bg=self.COLOR_BUTTON_BACKGROUND)
-        self.btnMode2 = tk.Button(self.frame, image=self.imgBtnAuto01, relief=tk.SOLID, command=lambda: self.changeSprayMode(SprayMode.AUTO,self.btnMode2), bd=0, bg=self.COLOR_BUTTON_BACKGROUND)
-        self.btnMode3 = tk.Button(self.frame, image=self.imgBtnManual01, relief=tk.SOLID, command=lambda: self.changeSprayMode(SprayMode.MANUAL,self.btnMode3), bd=0, bg=self.COLOR_BUTTON_BACKGROUND)
+        self.btnMode1 = tk.Button(self.frame, image=self.imgBtnDetect01, relief=tk.SOLID, command=lambda: self.changeSprayMode(SprayMode.DETECT,self.btnMode1), bd=0, highlightthickness=0, bg=self.COLOR_BUTTON_BACKGROUND)
+        self.btnMode2 = tk.Button(self.frame, image=self.imgBtnAuto01, relief=tk.SOLID, command=lambda: self.changeSprayMode(SprayMode.AUTO,self.btnMode2), bd=0, highlightthickness=0, bg=self.COLOR_BUTTON_BACKGROUND)
+        self.btnMode3 = tk.Button(self.frame, image=self.imgBtnManual01, relief=tk.SOLID, command=lambda: self.changeSprayMode(SprayMode.MANUAL,self.btnMode3), bd=0, highlightthickness=0, bg=self.COLOR_BUTTON_BACKGROUND)
 
-        self.btnMode4 = tk.Button(self.frame, relief=tk.SOLID, bd=0, image=self.settingBtnImg, command=lambda: self.controller.show_frame("DetectPage"), bg=self.COLOR_BUTTON_BACKGROUND)
-        self.btnMode5 = tk.Button(self.frame, relief=tk.SOLID, bd=0, image=self.settingBtnImg, command=lambda: self.controller.show_frame("AutoPage"), bg=self.COLOR_BUTTON_BACKGROUND)
+        self.btnMode4 = tk.Button(self.frame, relief=tk.SOLID, bd=0, highlightthickness=0, image=self.settingBtnImg, command=lambda: self.controller.show_frame("DetectPage"), bg=self.COLOR_BUTTON_BACKGROUND)
+        self.btnMode5 = tk.Button(self.frame, relief=tk.SOLID, bd=0, highlightthickness=0, image=self.settingBtnImg, command=lambda: self.controller.show_frame("AutoPage"), bg=self.COLOR_BUTTON_BACKGROUND)
 
         self.btnMode1.place(relx=0.1, rely=0.25)
         self.btnMode2.place(relx=0.4, rely=0.25)
