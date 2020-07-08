@@ -51,7 +51,7 @@ class StartPage(SettingPage):
 
         self.modeBtnCheck()
         if platform.system() == "Linux" :
-            self.rangeFinder = RangeFinder(controller)
+            self.rangeFinder = RangeFinder(self.controller)
 
         self.curtime1 = None
         self.curtime2 = None
