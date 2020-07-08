@@ -1,6 +1,6 @@
-from enum import Enum
+from enum import IntEnum
 
-class SprayMode(Enum):
+class SprayMode(IntEnum):
     AUTO = 1
     DETECT = 2
     MANUAL = 3

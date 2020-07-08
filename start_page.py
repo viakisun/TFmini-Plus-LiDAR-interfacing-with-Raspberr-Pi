@@ -46,9 +46,6 @@ class StartPage(SettingPage):
         self.btnMode4.place(relx=0.18, rely=0.65)
         self.btnMode5.place(relx=0.49, rely=0.65)
 
-        
-        
-
         self.modeBtnCheck()
         if platform.system() == "Linux" :
             self.rangeFinder = RangeFinder()
@@ -63,13 +60,17 @@ class StartPage(SettingPage):
         self.btnMode2.configure(image = self.imgBtnAuto01)
         self.btnMode3.configure(image = self.imgBtnManual01)
 
-        spray_mode = self.strToSpraymMode(ConfigManager().get_value("spray_mode"))
+        spray_mode = ConfigManager().get_value("spray_mode")
+        print(spray_mode)
        
         if spray_mode == SprayMode.DETECT :
+            print("인식모드 선택")
             self.btnMode1.configure(image = self.imgBtnDetect02)
         elif spray_mode == SprayMode.AUTO :
+            print("자동모드 선택")
             self.btnMode2.configure(image = self.imgBtnAuto02)
         elif spray_mode == SprayMode.MANUAL :
+            print("수동모드 선택")
             self.btnMode3.configure(image = self.imgBtnManual02)
 
     def init_WPI(self):
@@ -103,7 +104,6 @@ class StartPage(SettingPage):
         self.modeBtnCheck()
 
     def refresher(self):
-        print("detectmode start")
         if ConfigManager().get_value("spray_mode") == SprayMode.DETECT:
             if platform.system() == "Linux" :
                 distance = self.rangeFinder.read()
