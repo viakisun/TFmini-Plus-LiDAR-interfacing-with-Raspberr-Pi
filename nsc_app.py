@@ -31,7 +31,10 @@ class MainApp(tk.Tk):
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
-        #container.config(cursor="none")
+
+        if platform.system() == "Linux":
+            container.config(cursor="none")
+
         self.attributes()
 
         self.frames = {}
@@ -68,6 +71,9 @@ if __name__ == "__main__":
     app = MainApp()
     app.title("천연살균의학처 방역 시스템")
     app.geometry("1024x600")
-    #app.attributes("-fullscreen",True)
+    
+    if platform.system() == "Linux":
+        app.attributes("-fullscreen",True)
+        
     app.resizable(False, False)
     app.mainloop()
