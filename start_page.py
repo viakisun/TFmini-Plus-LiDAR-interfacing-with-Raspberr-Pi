@@ -22,6 +22,7 @@ class StartPage(SettingPage):
         self.init_UI()
         self.init_WPI()
         self.spray_start_time = None
+        self.auto_thread = threading.Timer(10, self.startAuto)
 
     def init_UI(self):
 
@@ -106,7 +107,7 @@ class StartPage(SettingPage):
             return True
         #threading.Timer(int(ConfigManager().get_value("auto_cycle_min")) * 60, self.startAuto).start()
         print("automode cycle")
-        threading.Timer(10, self.startAuto).start()
+        self.auto_thread.start()
 
     # def autoByTime(self):
         
