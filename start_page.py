@@ -71,6 +71,7 @@ class StartPage(SettingPage):
         if super().is_linux_system():
             wpi.wiringPiSetup()
             wpi.pinMode(4, 1)
+            wpi.digitalWrite(4, 0)
 
 
     def strToSpraymMode(self, str) :
@@ -117,12 +118,3 @@ class StartPage(SettingPage):
                 self.curtime2 = None
                 return True
         self.after(10, self.sprayByTime)
-            
-
-
-
-        # if distance < (self.controller.detectModeDetectDistance * 100) :
-        #     wpi.digitalWrite(4, 1)
-        # else:
-        #     if time.time() - self.curtime > self.controller.detectModeSprayTime :
-        #         wpi.digitalWrite(4, 0)

@@ -18,10 +18,12 @@ class MainApp(tk.Tk):
         imgBgDetect = tk.PhotoImage(file='images/bg_detect.png')
         imgBgAuto = tk.PhotoImage(file='images/bg_auto.png')
         imgBgManual = tk.PhotoImage(file='images/bg_manual.png')
-       
         self.imgBtnBack = tk.PhotoImage(file='images/btnBack.png')
-        
 
+        if platform.system() == "Linux":
+            wpi.wiringPiSetup()
+            wpi.pinMode(4, 1)
+        
         self.sprayMode = SprayMode.MANUAL
 
         # the container is where we'll stack a bunch of frames
@@ -62,6 +64,10 @@ class MainApp(tk.Tk):
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
         frame = self.frames[page_name]
+        if page_name == 'ManualPage':
+            frame.spray_on_check = False
+            frame.change_spray_btn()
+
         frame.tkraise()
 
     def setSprayMode(self, sprayMode):
