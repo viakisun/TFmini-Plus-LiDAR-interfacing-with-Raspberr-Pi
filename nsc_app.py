@@ -66,6 +66,7 @@ class MainApp(tk.Tk):
         frame = self.frames[page_name]
         if page_name == 'ManualPage':
             frame.spray_on_check = False
+            frame.init_spray()
             frame.change_spray_btn()
 
         frame.tkraise()

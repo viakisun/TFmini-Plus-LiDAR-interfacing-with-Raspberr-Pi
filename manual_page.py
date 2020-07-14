@@ -10,8 +10,7 @@ class ManualPage(SettingPage):
     def __init__(self, parent, controller, background_img):
         super().__init__(parent, controller, background_img)
         self.init_UI()
-        self.init_WPI()
-        self.spray_on_check = False
+        self.init_spray()
         self.change_spray_btn()
 
     def init_UI(self):
@@ -26,7 +25,8 @@ class ManualPage(SettingPage):
         self.btn_spray_off.place(relx=0.55, rely=0.35)
         self.btnHome.place(relx=0.93, rely=0.03)
 
-    def init_WPI(self):
+    def init_spray(self):
+        self.spray_on_check = False
         if super().is_linux_system():
             wpi.wiringPiSetup()
             wpi.pinMode(4, 1)
