@@ -22,6 +22,7 @@ class StartPage(SettingPage):
         self.init_UI()
         self.init_WPI()
         self.auto_threading = None
+        self.spray_start_time = None
 
     def init_UI(self):
 
@@ -50,9 +51,6 @@ class StartPage(SettingPage):
         self.modeBtnCheck()
         if platform.system() == "Linux" :
             self.rangeFinder = RangeFinder()
-
-        self.curtime1 = None
-        self.curtime2 = None
 
     def modeBtnCheck(self):
         self.btnMode1.configure(image = self.imgBtnDetect01)
@@ -89,9 +87,7 @@ class StartPage(SettingPage):
         if sprayMode == SprayMode.DETECT :
             self.refresher()
         elif sprayMode == SprayMode.AUTO :
-            self.curtime2 = None
-            if self.auto_threading:
-                self.auto_threading.cancel()
+            self.spray_start_time = time.time()
             self.startAuto()
         elif sprayMode == SprayMode.MANUAL:
             self.controller.show_frame("ManualPage")
@@ -104,23 +100,21 @@ class StartPage(SettingPage):
                 distance = self.rangeFinder.read()
             self.after(10, self.refresher) # every second...
 
-
     def startAuto(self):
         if ConfigManager().get_value("spray_mode") == SprayMode.AUTO:
             self.sprayByTime()
-            self.auto_threading = threading.Timer(int(ConfigManager().get_value("auto_cycle_min")) * 60, self.startAuto).start()
         else:
             self.auto_threading.cancel()
 
     def sprayByTime(self):
-        if self.curtime2 is None :
-            self.curtime2 = time.time()
+        if time.time() - self.spray_start_time > int(ConfigManager().get_value("auto_spray_duration_sec")):
+            if platform.system() == "Linux":
+                wpi.digitalWrite(4, 0)
+        else:
             if platform.system() == "Linux":
                 wpi.digitalWrite(4, 1)
-        else :
-            if time.time() - self.curtime2 > int(ConfigManager().get_value("auto_spray_duration_sec")):
-                if platform.system() == "Linux":
-                    wpi.digitalWrite(4, 0)
-                self.curtime2 = None
-                return True
-        self.after(10, self.sprayByTime)
+            return True
+
+        threading.Timer(0.5, self.sprayByTime).start()
+
+        #threading.Timer(int(ConfigManager().get_value("auto_cycle_min")) * 60, self.sprayByTime).start()
