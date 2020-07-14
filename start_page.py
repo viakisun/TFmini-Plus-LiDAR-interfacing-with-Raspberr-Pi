@@ -105,7 +105,8 @@ class StartPage(SettingPage):
             self.sprayByTime()
         else:
             return True
-        threading.Timer(int(ConfigManager().get_value("auto_cycle_min")) * 60, self.startAuto).start()
+        #threading.Timer(int(ConfigManager().get_value("auto_cycle_min")) * 60, self.startAuto).start()
+        threading.Timer(10, self.startAuto).start()
 
     # def autoByTime(self):
         
