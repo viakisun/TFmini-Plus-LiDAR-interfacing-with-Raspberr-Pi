@@ -110,10 +110,10 @@ class StartPage(SettingPage):
         if time.time() - self.spray_start_time > int(ConfigManager().get_value("auto_spray_duration_sec")):
             if platform.system() == "Linux":
                 wpi.digitalWrite(4, 0)
+            return True
         else:
             if platform.system() == "Linux":
                 wpi.digitalWrite(4, 1)
-            return True
 
         threading.Timer(0.5, self.sprayByTime).start()
 
