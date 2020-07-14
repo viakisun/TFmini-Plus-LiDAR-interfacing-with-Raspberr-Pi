@@ -12,8 +12,7 @@ class ManualPage(SettingPage):
         self.init_UI()
         self.init_WPI()
         self.spray_on_check = False
-        self.WPI_PIN_NUM = 4
-        self.change_spray_btn()        
+        self.change_spray_btn()
 
     def init_UI(self):
         self.img_btn_spray_on = tk.PhotoImage(file='images/btn_spray_on.png')
@@ -30,18 +29,18 @@ class ManualPage(SettingPage):
     def init_WPI(self):
         if super().is_linux_system():
             wpi.wiringPiSetup()
-            wpi.pinMode(self.WPI_PIN_NUM, 1)
-            wpi.digitalWrite(self.WPI_PIN_NUM, 0)
+            wpi.pinMode(4, 1)
+            wpi.digitalWrite(4, 0)
 
     def spray_on(self):
         if super().is_linux_system():
-            wpi.digitalWrite(self.WPI_PIN_NUM, 1)
+            wpi.digitalWrite(4, 1)
         self.spray_on_check = True
         self.change_spray_btn()
 
     def spray_off(self):
         if super().is_linux_system():
-            wpi.digitalWrite(self.WPI_PIN_NUM, 0)
+            wpi.digitalWrite(4, 0)
         self.spray_on_check = False
         self.change_spray_btn()            
 
