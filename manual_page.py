@@ -12,8 +12,8 @@ class ManualPage(SettingPage):
         self.init_UI()
         self.init_WPI()
         self.spray_on_check = False
-        self.change_spray_btn()
         self.WPI_PIN_NUM = 4
+        self.change_spray_btn()        
 
     def init_UI(self):
         self.img_btn_spray_on = tk.PhotoImage(file='images/btn_spray_on.png')
