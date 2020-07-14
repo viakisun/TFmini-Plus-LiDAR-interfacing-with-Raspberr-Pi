@@ -86,8 +86,6 @@ class StartPage(SettingPage):
         if sprayMode == SprayMode.DETECT :
             self.refresher()
         elif sprayMode == SprayMode.AUTO :
-            self.auto_start_time = time.time()
-            self.spray_start_time = time.time()
             self.startAuto()
         elif sprayMode == SprayMode.MANUAL:
             self.controller.show_frame("ManualPage")
@@ -102,6 +100,7 @@ class StartPage(SettingPage):
 
     def startAuto(self):
         if ConfigManager().get_value("spray_mode") == SprayMode.AUTO:
+            self.spray_start_time = time.time()
             self.sprayByTime()
         else:
             return True
