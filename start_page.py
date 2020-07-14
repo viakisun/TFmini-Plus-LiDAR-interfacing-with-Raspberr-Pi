@@ -88,6 +88,7 @@ class StartPage(SettingPage):
         if sprayMode == SprayMode.DETECT :
             self.refresher()
         elif sprayMode == SprayMode.AUTO :
+            self.curtime2 = None
             self.startAuto()
         elif sprayMode == SprayMode.MANUAL:
             self.controller.show_frame("ManualPage")
