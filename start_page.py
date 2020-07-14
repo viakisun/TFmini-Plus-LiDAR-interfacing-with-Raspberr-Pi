@@ -21,6 +21,7 @@ class StartPage(SettingPage):
         self.controller = controller
         self.init_UI()
         self.init_WPI()
+        self.auto_threading = None
 
     def init_UI(self):
 
@@ -105,7 +106,9 @@ class StartPage(SettingPage):
     def startAuto(self):
         if ConfigManager().get_value("spray_mode") == SprayMode.AUTO:
             self.sprayByTime()
-            threading.Timer(int(ConfigManager().get_value("auto_cycle_min")) * 60, self.startAuto).start()
+            self.auto_threading = threading.Timer(int(ConfigManager().get_value("auto_cycle_min")) * 60, self.startAuto).start()
+        else:
+            self.auto_threading.cancel()
 
     def sprayByTime(self):
         if self.curtime2 is None :
