@@ -22,7 +22,7 @@ class StartPage(SettingPage):
         self.init_UI()
         self.init_WPI()
         self.spray_start_time = None
-        self.auto_thread = threading.Timer(10, self.startAuto)
+        self.auto_thread = None
 
     def init_UI(self):
 
@@ -87,6 +87,11 @@ class StartPage(SettingPage):
         if sprayMode == SprayMode.DETECT :
             self.refresher()
         elif sprayMode == SprayMode.AUTO :
+            if self.auto_thread != None:
+                if self.auto_thread.is_alive():
+                    self.auto_thread.cancel()
+
+
             self.startAuto()
         elif sprayMode == SprayMode.MANUAL:
             self.controller.show_frame("ManualPage")
@@ -105,9 +110,14 @@ class StartPage(SettingPage):
             self.sprayByTime()
         else:
             return True
-        #threading.Timer(int(ConfigManager().get_value("auto_cycle_min")) * 60, self.startAuto).start()
+        
         print("automode cycle")
+        self.auto_thread = threading.Timer(10, self.startAuto)
         self.auto_thread.start()
+        
+        #threading.Timer(int(ConfigManager().get_value("auto_cycle_min")) * 60, self.startAuto).start()
+        
+
 
     # def autoByTime(self):
         
@@ -119,8 +129,7 @@ class StartPage(SettingPage):
         else:
             if platform.system() == "Linux":
                 wpi.digitalWrite(4, 0)
-            return True            
-
+            return True
         threading.Timer(0.5, self.sprayByTime).start()
 
         #threading.Timer(int(ConfigManager().get_value("auto_cycle_min")) * 60, self.sprayByTime).start()
