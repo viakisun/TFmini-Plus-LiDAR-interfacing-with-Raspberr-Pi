@@ -112,15 +112,8 @@ class StartPage(SettingPage):
             return True
         
         print("automode cycle")
-        self.auto_thread = threading.Timer(10, self.startAuto)
+        self.auto_thread = threading.Timer(int(ConfigManager().get_value("auto_cycle_min")) * 60, self.startAuto)
         self.auto_thread.start()
-        
-        #threading.Timer(int(ConfigManager().get_value("auto_cycle_min")) * 60, self.startAuto).start()
-        
-
-
-    # def autoByTime(self):
-        
 
     def sprayByTime(self):
         if ConfigManager().get_value("spray_mode") == SprayMode.AUTO and time.time() - self.spray_start_time < int(ConfigManager().get_value("auto_spray_duration_sec")):
@@ -131,5 +124,3 @@ class StartPage(SettingPage):
                 wpi.digitalWrite(4, 0)
             return True
         threading.Timer(0.5, self.sprayByTime).start()
-
-        #threading.Timer(int(ConfigManager().get_value("auto_cycle_min")) * 60, self.sprayByTime).start()
