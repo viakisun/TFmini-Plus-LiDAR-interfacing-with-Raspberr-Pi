@@ -1,13 +1,17 @@
 import serial
 import odroid_wiringpi as wpi
 import time
+import threading
 from config_manager import *
+from config_value import ConfigValue
 
 class RangeFinder():
     def __init__(self):
         self.ser = serial.Serial("/dev/ttyS1", 115200)
         wpi.wiringPiSetup()
         self.curtime = 0
+        self.out_valve_start_time = None
+        self.cur_spray_on = None
 
         try:
             if self.ser.isOpen() == False:
@@ -34,10 +38,13 @@ class RangeFinder():
 
                 if distance < (float(ConfigManager().get_value("detect_distance_meter")) * 100) :
                     self.curtime = time.time()
-                    wpi.digitalWrite(4, 1)
+                    self.spray_on()
                 else:
                     if time.time() - self.curtime > float(ConfigManager().get_value("detect_spray_duration_sec")) :
-                        wpi.digitalWrite(4, 0)
+                        print("Here Here Here===")
+                        self.spray_off()
+                    else:
+                        self.spray_on()
 
                 # if temperature != 0:
                 #     print("Temperature:" + str(temperature))
@@ -45,3 +52,23 @@ class RangeFinder():
                 self.ser.reset_input_buffer()
 
                 return distance;
+
+    def spray_on(self):
+        self.cur_spray_on = True
+        wpi.digitalWrite(ConfigValue.SPRAY_WPI_NUM, 1)
+        wpi.digitalWrite(ConfigValue.VALVE_WPI_NUM, 0)
+
+    def spray_off(self):
+        if self.cur_spray_on:
+            self.cur_spray_on = False
+            wpi.digitalWrite(ConfigValue.SPRAY_WPI_NUM, 0)
+            self.out_valve_start_time = time.time()
+            self.on_out_valve()            
+
+    def on_out_valve(self):
+        if time.time() - self.out_valve_start_time < ConfigValue.VALVE_ON_TIME:
+            wpi.digitalWrite(ConfigValue.VALVE_WPI_NUM, 1)
+        else:
+            wpi.digitalWrite(ConfigValue.VALVE_WPI_NUM, 0)
+            return True
+        threading.Timer(0.1, self.on_out_valve).start()

@@ -5,6 +5,10 @@ from setting_page import *
 if platform.system() == "Linux" :
     import odroid_wiringpi as wpi
 
+import time
+import threading
+from config_value import ConfigValue    
+
 class ManualPage(SettingPage):
 
     def __init__(self, parent, controller, background_img):
@@ -12,6 +16,7 @@ class ManualPage(SettingPage):
         self.init_UI()
         self.init_spray()
         self.change_spray_btn()
+        self.out_valve_start_time = None
 
     def init_UI(self):
         self.img_btn_spray_on = tk.PhotoImage(file='images/btn_spray_on.png')
@@ -29,18 +34,23 @@ class ManualPage(SettingPage):
         self.spray_on_check = False
         if super().is_linux_system():
             wpi.wiringPiSetup()
-            wpi.pinMode(4, 1)
-            wpi.digitalWrite(4, 0)
+            # wpi.pinMode(ConfigValue.SPRAY_WPI_NUM, 1)
+            # wpi.pinMode(ConfigValue.VALVE_WPI_NUM, 1)
+            wpi.digitalWrite(ConfigValue.SPRAY_WPI_NUM, 0)
+            wpi.digitalWrite(ConfigValue.VALVE_WPI_NUM, 0)
 
     def spray_on(self):
         if super().is_linux_system():
-            wpi.digitalWrite(4, 1)
+            wpi.digitalWrite(ConfigValue.SPRAY_WPI_NUM, 1)
+            wpi.digitalWrite(ConfigValue.VALVE_WPI_NUM, 0)
         self.spray_on_check = True
         self.change_spray_btn()
 
     def spray_off(self):
         if super().is_linux_system():
-            wpi.digitalWrite(4, 0)
+            wpi.digitalWrite(ConfigValue.SPRAY_WPI_NUM, 0)
+            self.out_valve_start_time = time.time()
+            self.on_out_valve()
         self.spray_on_check = False
         self.change_spray_btn()            
 
@@ -50,4 +60,14 @@ class ManualPage(SettingPage):
             self.btn_spray_off.configure(image = self.img_btn_spray_off)
         else:
             self.btn_spray_on.configure(image = self.img_btn_spray_on)
-            self.btn_spray_off.configure(image = self.img_btn_spray_off_sel)         
+            self.btn_spray_off.configure(image = self.img_btn_spray_off_sel)
+
+    def on_out_valve(self):
+        if time.time() - self.out_valve_start_time < ConfigValue.VALVE_ON_TIME:
+            if platform.system() == "Linux":
+                wpi.digitalWrite(ConfigValue.VALVE_WPI_NUM, 1)
+        else:
+            if platform.system() == "Linux":
+                wpi.digitalWrite(ConfigValue.VALVE_WPI_NUM, 0)
+            return True
+        threading.Timer(0.1, self.on_out_valve).start()

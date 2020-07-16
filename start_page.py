@@ -12,6 +12,7 @@ import time
 
 from spray_mode import *
 from config_manager import *
+from config_value import ConfigValue
 
 
 class StartPage(SettingPage):
@@ -22,6 +23,7 @@ class StartPage(SettingPage):
         self.init_UI()
         self.init_WPI()
         self.spray_start_time = None
+        self.out_valve_start_time = None
         self.auto_thread = None
 
     def init_UI(self):
@@ -69,8 +71,9 @@ class StartPage(SettingPage):
     def init_WPI(self):
         if super().is_linux_system():
             wpi.wiringPiSetup()
-            wpi.pinMode(4, 1)
-            wpi.digitalWrite(4, 0)
+            wpi.pinMode(ConfigValue.SPRAY_WPI_NUM, 1)
+            wpi.pinMode(ConfigValue.VALVE_WPI_NUM, 1)
+            wpi.digitalWrite(ConfigValue.SPRAY_WPI_NUM, 0)
 
 
     def strToSpraymMode(self, str) :
@@ -90,7 +93,6 @@ class StartPage(SettingPage):
             if self.auto_thread != None:
                 if self.auto_thread.is_alive():
                     self.auto_thread.cancel()
-
 
             self.startAuto()
         elif sprayMode == SprayMode.MANUAL:
@@ -118,9 +120,29 @@ class StartPage(SettingPage):
     def sprayByTime(self):
         if ConfigManager().get_value("spray_mode") == SprayMode.AUTO and time.time() - self.spray_start_time < int(ConfigManager().get_value("auto_spray_duration_sec")):
             if platform.system() == "Linux":
-                wpi.digitalWrite(4, 1)
+                self.spray_on()
         else:
             if platform.system() == "Linux":
-                wpi.digitalWrite(4, 0)
+                self.spray_off()
             return True
         threading.Timer(0.5, self.sprayByTime).start()
+
+    def spray_on(self):
+        wpi.digitalWrite(ConfigValue.SPRAY_WPI_NUM, 1)
+        wpi.digitalWrite(ConfigValue.VALVE_WPI_NUM, 0)
+    
+    def spray_off(self):
+        wpi.digitalWrite(ConfigValue.SPRAY_WPI_NUM, 0)
+        self.out_valve_start_time = time.time()
+        self.on_out_valve()
+
+
+    def on_out_valve(self):
+        if time.time() - self.out_valve_start_time < ConfigValue.VALVE_ON_TIME:
+            if platform.system() == "Linux":
+                wpi.digitalWrite(ConfigValue.VALVE_WPI_NUM, 1)
+        else:
+            if platform.system() == "Linux":
+                wpi.digitalWrite(ConfigValue.VALVE_WPI_NUM, 0)
+            return True
+        threading.Timer(0.1, self.on_out_valve).start()
