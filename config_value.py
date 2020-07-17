@@ -9,4 +9,4 @@ class ConfigValue:
     MIN_SPRAY_TIME = 1.0
     MAX_DETECT_DISTANCE = 3.0
     MIN_DETECT_DISTANCE = 0.5
-    VALVE_ON_TIME = 1.5
+    VALVE_ON_TIME = 1.0
