@@ -26,13 +26,13 @@ class StartPage(SettingPage):
 
     def init_UI(self):
 
-        self.imgBtnDetect01 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/btnDetect01.png')
-        self.imgBtnDetect02 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/btnDetect02.png')
-        self.imgBtnAuto01 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/btnAuto01.png')
-        self.imgBtnAuto02 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/btnAuto02.png')
-        self.imgBtnManual01 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/btnManual01.png')
-        self.imgBtnManual02 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/btnManual02.png')
-        self.settingBtnImg = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/btn_01.png')
+        self.imgBtnDetect01 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rp/images/btnDetect01.png')
+        self.imgBtnDetect02 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rp/images/btnDetect02.png')
+        self.imgBtnAuto01 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rp/images/btnAuto01.png')
+        self.imgBtnAuto02 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rp/images/btnAuto02.png')
+        self.imgBtnManual01 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rp/images/btnManual01.png')
+        self.imgBtnManual02 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rp/images/btnManual02.png')
+        self.settingBtnImg = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rp/images/btn_01.png')
 
         
         self.btnMode1 = tk.Button(self.frame, image=self.imgBtnDetect01, relief=tk.SOLID, command=lambda: self.changeSprayMode(SprayMode.DETECT,self.btnMode1), bd=0, highlightthickness=0, bg=self.COLOR_BUTTON_BACKGROUND)
