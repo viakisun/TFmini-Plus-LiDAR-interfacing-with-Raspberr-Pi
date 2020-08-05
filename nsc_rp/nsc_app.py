@@ -15,11 +15,11 @@ class MainApp(tk.Tk):
         tk.Tk.__init__(self, *args, **kwargs)
 
         #이미지 관리
-        imgBgEmpty = tk.PhotoImage(file='images/bg_empty.png')
-        imgBgDetect = tk.PhotoImage(file='images/bg_detect.png')
-        imgBgAuto = tk.PhotoImage(file='images/bg_auto.png')
-        imgBgManual = tk.PhotoImage(file='images/bg_manual.png')
-        self.imgBtnBack = tk.PhotoImage(file='images/btnBack.png')
+        imgBgEmpty = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/bg_empty.png')
+        imgBgDetect = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/bg_detect.png')
+        imgBgAuto = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/bg_auto.png')
+        imgBgManual = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/bg_manual.png')
+        self.imgBtnBack = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/btnBack.png')
 
         if platform.system() == "Linux":
             GPIO.setmode(GPIO.BCM)

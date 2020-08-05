@@ -18,10 +18,10 @@ class ManualPage(SettingPage):
         self.change_spray_btn()
 
     def init_UI(self):
-        self.img_btn_spray_on = tk.PhotoImage(file='images/btn_spray_on.png')
-        self.img_btn_spray_off = tk.PhotoImage(file='images/btn_spray_off.png')
-        self.img_btn_spray_on_sel = tk.PhotoImage(file='images/btn_spray_on_sel.png')
-        self.img_btn_spray_off_sel = tk.PhotoImage(file='images/btn_spray_off_sel.png')
+        self.img_btn_spray_on = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/btn_spray_on.png')
+        self.img_btn_spray_off = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/btn_spray_off.png')
+        self.img_btn_spray_on_sel = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/btn_spray_on_sel.png')
+        self.img_btn_spray_off_sel = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/btn_spray_off_sel.png')
 
         self.btn_spray_on = tk.Button(self.frame, image=self.img_btn_spray_on, relief=tk.RIDGE, bd=0, highlightthickness=0, bg=self.COLOR_BUTTON_BACKGROUND, command=lambda: self.spray_on())
         self.btn_spray_off = tk.Button(self.frame, image=self.img_btn_spray_off, relief=tk.RIDGE, bd=0, highlightthickness=0, bg=self.COLOR_BUTTON_BACKGROUND, command=lambda: self.spray_off())

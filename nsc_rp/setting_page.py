@@ -19,11 +19,11 @@ class SettingPage(tk.Frame):
         background_label = tk.Label(self.frame, image=self.bg_image)
         background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-        self.imgBtnBack = tk.PhotoImage(file='images/btnBack.png')
+        self.imgBtnBack = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/btnBack.png')
         self.btnHome = tk.Button(self.frame, relief="solid", bd=0, highlightthickness=0, image=controller.imgBtnBack, bg=self.COLOR_BUTTON_BACKGROUND, command=lambda: self.go_start_page())
 
-        self.imgBtnUp = tk.PhotoImage(file='images/btnUp.png')
-        self.imgBtnDown = tk.PhotoImage(file='images/btnDown.png')
+        self.imgBtnUp = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/btnUp.png')
+        self.imgBtnDown = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rc/images/btnDown.png')
 
         if platform.system() == "Linux" :
             GPIO.setmode(GPIO.BCM)
