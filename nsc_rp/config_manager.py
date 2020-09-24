@@ -11,7 +11,7 @@ class MetaSingleton( type):
 class ConfigManager(metaclass = MetaSingleton):
     
     def __init__(self):
-        self.FILE_NAME_CONFIG = "/home/pi/devwork/nsc/nsc_rp/config.txt"
+        self.FILE_NAME_CONFIG = "config.txt"
         self.config_dict = {
             "detect_spray_duration_sec": 2.5,
             "detect_distance_meter": 1.0,

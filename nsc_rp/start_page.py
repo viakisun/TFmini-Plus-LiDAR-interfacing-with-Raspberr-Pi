@@ -1,19 +1,25 @@
 #-*- coding:utf-8 -*-
 
 import tkinter as tk                # python 3
+import tkinter.ttk
 import threading
 import platform
 from setting_page import *
 if platform.system() == "Linux" :
     from range_finder import *
     import RPi.GPIO as GPIO
+    from hx711 import HX711
 
 import time
 
 from spray_mode import *
 from config_manager import *
 from config_value import ConfigValue
+from liquid_balance_manager import LiquidBalanceManager
 
+import sys
+import random #테스트용
+import threading
 
 class StartPage(SettingPage):
 
@@ -26,33 +32,74 @@ class StartPage(SettingPage):
         self.out_valve_start_time = None
         self.auto_thread = None
 
+        self.referenceUnit = 1
+        self.hx = None
+
     def init_UI(self):
 
-        self.imgBtnDetect01 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rp/images/btnDetect01.png')
-        self.imgBtnDetect02 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rp/images/btnDetect02.png')
-        self.imgBtnAuto01 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rp/images/btnAuto01.png')
-        self.imgBtnAuto02 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rp/images/btnAuto02.png')
-        self.imgBtnManual01 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rp/images/btnManual01.png')
-        self.imgBtnManual02 = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rp/images/btnManual02.png')
-        self.settingBtnImg = tk.PhotoImage(file='/home/pi/devwork/nsc/nsc_rp/images/btn_01.png')
+        self.imgBtnDetect01 = tk.PhotoImage(file='images/btnDetect01.png')
+        self.imgBtnDetect02 = tk.PhotoImage(file='images/btnDetect02.png')
+        self.imgBtnAuto01 = tk.PhotoImage(file='images/btnAuto01.png')
+        self.imgBtnAuto02 = tk.PhotoImage(file='images/btnAuto02.png')
+        self.imgBtnManual01 = tk.PhotoImage(file='images/btnManual01.png')
+        self.imgBtnManual02 = tk.PhotoImage(file='images/btnManual02.png')
+        self.settingBtnImg = tk.PhotoImage(file='images/btn_01.png')
 
         
         self.btnMode1 = tk.Button(self.frame, image=self.imgBtnDetect01, relief=tk.SOLID, command=lambda: self.changeSprayMode(SprayMode.DETECT,self.btnMode1), bd=0, highlightthickness=0, bg=self.COLOR_BUTTON_BACKGROUND)
         self.btnMode2 = tk.Button(self.frame, image=self.imgBtnAuto01, relief=tk.SOLID, command=lambda: self.changeSprayMode(SprayMode.AUTO,self.btnMode2), bd=0, highlightthickness=0, bg=self.COLOR_BUTTON_BACKGROUND)
         self.btnMode3 = tk.Button(self.frame, image=self.imgBtnManual01, relief=tk.SOLID, command=lambda: self.changeSprayMode(SprayMode.MANUAL,self.btnMode3), bd=0, highlightthickness=0, bg=self.COLOR_BUTTON_BACKGROUND)
 
+
         self.btnMode4 = tk.Button(self.frame, relief=tk.SOLID, bd=0, highlightthickness=0, image=self.settingBtnImg, command=lambda: self.controller.show_frame("DetectPage"), bg=self.COLOR_BUTTON_BACKGROUND)
         self.btnMode5 = tk.Button(self.frame, relief=tk.SOLID, bd=0, highlightthickness=0, image=self.settingBtnImg, command=lambda: self.controller.show_frame("AutoPage"), bg=self.COLOR_BUTTON_BACKGROUND)
 
-        self.btnMode1.place(relx=0.1, rely=0.25)
-        self.btnMode2.place(relx=0.4, rely=0.25)
-        self.btnMode3.place(relx=0.7, rely=0.25)
-        self.btnMode4.place(relx=0.18, rely=0.65)
-        self.btnMode5.place(relx=0.49, rely=0.65)
+        self.btnMode1.place(relx=0.1, rely=0.2-0.03)
+        self.btnMode2.place(relx=0.4, rely=0.2-0.03)
+        self.btnMode3.place(relx=0.7, rely=0.2-0.03)
+        self.btnMode4.place(relx=0.18, rely=0.6-0.03)
+        self.btnMode5.place(relx=0.49, rely=0.6-0.03)
+
+        self.progressbar_style = tkinter.ttk.Style()
+        self.progressbar_style.theme_use('default')
+        self.progressbar_style.configure("TProgressbar", foreground='green', background='green', thickness=30)
+
+        font=tkinter.font.Font(family="맑은 고딕", size=11)
+        self.progressbar = tkinter.ttk.Progressbar(self.frame, style="TProgressbar", maximum=100, mode="determinate", value=50, length=800)
+        self.progressbar.place(relx=0.11, rely=0.7)
+        self.label_liquid_balance = tkinter.Label(self.frame, text="약재잔량 : 100%", fg="white", relief="flat", bg="#0C4323", font=font)
+        self.label_liquid_balance.place(relx=0.78, rely=0.65)
+
+        self.start_check_liquid_balance()
 
         self.modeBtnCheck()
         if platform.system() == "Linux" :
             self.rangeFinder = RangeFinder()
+
+
+    def start_check_liquid_balance(self):
+        if platform.system() == "Linux" :
+            LiquidBalanceManager.hx = HX711(5, 6)
+            LiquidBalanceManager.hx.set_reading_format("MSB", "MSB")
+            LiquidBalanceManager.hx.set_reading_format("MSB", "MSB")
+            LiquidBalanceManager.hx.reset()
+            LiquidBalanceManager.hx.tare()
+
+        t = threading.Thread(target=self.bg_worker)
+        t.start()
+
+    def update_liquid_balance(self, liquid_balance):
+        self.label_liquid_balance.configure(text = "약재잔량 : " + str(liquid_balance) + "%")
+        self.progressbar.configure(value=liquid_balance)
+
+        if liquid_balance >= 0 and liquid_balance <= 10:
+            color_value = 'red'
+        elif liquid_balance > 10 and liquid_balance <= 30:
+            color_value = 'yellow'
+        elif liquid_balance > 30 and liquid_balance <= 100:
+            color_value = 'green'
+        
+        self.progressbar_style.configure("TProgressbar", foreground=color_value, background=color_value, thickness=30)
 
     def modeBtnCheck(self):
         self.btnMode1.configure(image = self.imgBtnDetect01)
@@ -145,3 +192,25 @@ class StartPage(SettingPage):
                 GPIO.output(ConfigValue.VALVE_WPI_NUM, False)
             return True
         threading.Timer(0.1, self.on_out_valve).start()
+
+    def bg_worker(self):
+        """
+        while True:
+            try:
+                val = self.hx.get_weight(5)
+                self.hx.power_down()
+                self.hx.power_up()
+                time.sleep(1)
+                self.update_liquid_balance(val * 10)
+            except (KeyboardInterrupt, SystemExit):
+                self.cleanAndExit()
+        """
+
+        while True:
+            val = random.randint(1,10)
+            self.update_liquid_balance(val * 10)
+            time.sleep(1)
+
+    def cleanAndExit(self):
+        GPIO.cleanup()
+        sys.exit()
