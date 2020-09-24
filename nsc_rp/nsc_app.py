@@ -24,6 +24,7 @@ class MainApp(tk.Tk):
         if platform.system() == "Linux":
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(ConfigValue.SPRAY_WPI_NUM, GPIO.OUT)
+            GPIO.setup(ConfigValue.VALVE_WPI_NUM, GPIO.OUT)
         
         self.sprayMode = SprayMode.MANUAL
 
