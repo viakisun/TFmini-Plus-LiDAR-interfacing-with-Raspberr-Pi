@@ -1,5 +1,4 @@
 import serial
-#import odroid_wiringpi as wpi
 import RPi.GPIO as GPIO
 import time
 import threading
@@ -11,6 +10,7 @@ class RangeFinder():
         self.ser = serial.Serial("/dev/ttyAMA0", 115200)
         GPIO.setmode(GPIO.BCM)
         self.curtime = 0
+        self.out_valve_start_time = None
         self.cur_spray_on = None
 
         try:
@@ -53,8 +53,19 @@ class RangeFinder():
     def spray_on(self):
         self.cur_spray_on = True
         GPIO.output(ConfigValue.SPRAY_WPI_NUM, True)
+        GPIO.output(ConfigValue.VALVE_WPI_NUM, False)
 
     def spray_off(self):
         if self.cur_spray_on:
             self.cur_spray_on = False
             GPIO.output(ConfigValue.SPRAY_WPI_NUM, False)
+            self.out_valve_start_time = time.time()
+            self.on_out_valve()            
+
+    def on_out_valve(self):
+        if time.time() - self.out_valve_start_time < ConfigValue.VALVE_ON_TIME:
+            GPIO.output(ConfigValue.VALVE_WPI_NUM, True)
+        else:
+            GPIO.output(ConfigValue.VALVE_WPI_NUM, False)
+            return True
+        threading.Timer(0.1, self.on_out_valve).start()

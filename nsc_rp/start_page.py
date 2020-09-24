@@ -9,9 +9,11 @@ if platform.system() == "Linux" :
     import RPi.GPIO as GPIO
 
 import time
+
 from spray_mode import *
 from config_manager import *
 from config_value import ConfigValue
+
 
 class StartPage(SettingPage):
 
@@ -69,7 +71,8 @@ class StartPage(SettingPage):
     def init_WPI(self):
         if super().is_linux_system():
             GPIO.setmode(GPIO.BCM)
-            GPIO.output(ConfigValue.SPRAY_WPI_NUM, False)           
+            GPIO.output(ConfigValue.SPRAY_WPI_NUM, False)
+            GPIO.output(ConfigValue.VALVE_WPI_NUM, False)
 
 
     def strToSpraymMode(self, str) :
@@ -125,8 +128,20 @@ class StartPage(SettingPage):
 
     def spray_on(self):
         GPIO.output(ConfigValue.SPRAY_WPI_NUM, True)
-        
+        GPIO.output(ConfigValue.VALVE_WPI_NUM, False)
     
     def spray_off(self):
         GPIO.output(ConfigValue.SPRAY_WPI_NUM, False)
         self.out_valve_start_time = time.time()
+        self.on_out_valve()
+
+
+    def on_out_valve(self):
+        if time.time() - self.out_valve_start_time < ConfigValue.VALVE_ON_TIME:
+            if platform.system() == "Linux":
+                GPIO.output(ConfigValue.VALVE_WPI_NUM, True)
+        else:
+            if platform.system() == "Linux":
+                GPIO.output(ConfigValue.VALVE_WPI_NUM, False)
+            return True
+        threading.Timer(0.1, self.on_out_valve).start()
