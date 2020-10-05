@@ -103,7 +103,7 @@ class StartPage(SettingPage):
     def refresher(self):
         if ConfigManager().get_value("spray_mode") == SprayMode.DETECT:
             if platform.system() == "Linux" :
-                distance = self.rangeFinder.read()
+                distance = self.rangeFinder.read(self.liquid_5per)
             self.after(10, self.refresher) # every second...
 
     def startAuto(self):
