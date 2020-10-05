@@ -4,6 +4,7 @@ import tkinter as tk                # python 3
 import tkinter.ttk
 import threading
 import platform
+
 from setting_page import *
 if platform.system() == "Linux" :
     from range_finder import *
@@ -21,6 +22,8 @@ import sys
 import random #테스트용
 import threading
 
+import pygame
+
 class StartPage(SettingPage):
 
     def __init__(self, parent, controller, background_img):
@@ -34,6 +37,9 @@ class StartPage(SettingPage):
 
         self.referenceUnit = 1
         self.hx = None
+        pygame.init()
+        pygame.mixer.init()
+        self.liquid_10per = False
 
     def init_UI(self):
 
@@ -93,13 +99,19 @@ class StartPage(SettingPage):
         self.label_liquid_balance.configure(text = "약재잔량 : " + str(liquid_balance) + "%")
         self.progressbar.configure(value=liquid_balance)
 
+        self.liquid_10per = False
+
         if liquid_balance >= 0 and liquid_balance <= 10:
             color_value = 'red'
+            self.liquid_10per = True
+            self.play_notice_10per_sound()
         elif liquid_balance > 10 and liquid_balance <= 30:
             color_value = 'yellow'
         elif liquid_balance > 30 and liquid_balance <= 100:
             color_value = 'green'
-        
+        else:
+            color_value = 'green'
+            
         self.progressbar_style.configure("TProgressbar", foreground=color_value, background=color_value, thickness=30)
 
     def modeBtnCheck(self):
@@ -245,3 +257,12 @@ class StartPage(SettingPage):
     def cleanAndExit(self):
         GPIO.cleanup()
         sys.exit()
+
+    def play_notice_10per_sound(self):
+        notice_10per_sound = pygame.mixer.Sound('./sound/notice_10per.wav')
+        notice_10per_sound.set_volume(1)
+        if self.liquid_10per :
+            notice_10per_sound.play()
+        else:
+            return
+        threading.Timer(5, self.play_notice_10per_sound).start()
