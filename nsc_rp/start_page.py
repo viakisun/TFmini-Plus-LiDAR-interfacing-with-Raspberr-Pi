@@ -79,7 +79,7 @@ class StartPage(SettingPage):
 
     def start_check_liquid_balance(self):
         if platform.system() == "Linux" :
-            LiquidBalanceManager.hx = HX711(5, 6)
+            LiquidBalanceManager.hx = HX711(17, 27)
             LiquidBalanceManager.hx.set_reading_format("MSB", "MSB")
             LiquidBalanceManager.hx.set_reading_format("MSB", "MSB")
             LiquidBalanceManager.hx.reset()
@@ -196,7 +196,7 @@ class StartPage(SettingPage):
     def bg_worker(self):
         while True:
             try:
-                val = self.hx.get_weight(5)
+                val = self.hx.get_weight(17)
                 self.hx.power_down()
                 self.hx.power_up()
                 time.sleep(1)
