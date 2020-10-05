@@ -39,7 +39,7 @@ class StartPage(SettingPage):
         self.hx = None
         pygame.init()
         pygame.mixer.init()
-        self.liquid_10per = True
+        self.liquid_10per = False
 
     def init_UI(self):
 
@@ -99,22 +99,23 @@ class StartPage(SettingPage):
         self.label_liquid_balance.configure(text = "약재잔량 : " + str(liquid_balance) + "%")
         self.progressbar.configure(value=liquid_balance)
 
-        self.liquid_10per = False
-
         if liquid_balance >= 0 and liquid_balance <= 10:
             color_value = 'red'
             if self.liquid_10per == False:
                 self.liquid_10per = True
                 self.play_notice_10per_sound()
-                
+
         elif liquid_balance > 10 and liquid_balance <= 30:
             color_value = 'yellow'
         elif liquid_balance > 30 and liquid_balance <= 100:
             color_value = 'green'
+            self.liquid_10per = False
         else:
             color_value = 'green'
+            self.liquid_10per = False
             
         self.progressbar_style.configure("TProgressbar", foreground=color_value, background=color_value, thickness=30)
+        
 
     def modeBtnCheck(self):
         self.btnMode1.configure(image = self.imgBtnDetect01)
