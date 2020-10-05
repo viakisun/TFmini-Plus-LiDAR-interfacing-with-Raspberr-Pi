@@ -21,7 +21,6 @@ from liquid_balance_manager import LiquidBalanceManager
 import sys
 import random #테스트용
 import threading
-
 import pygame
 
 class StartPage(SettingPage):
@@ -40,6 +39,7 @@ class StartPage(SettingPage):
         pygame.init()
         pygame.mixer.init()
         self.liquid_10per = False
+        self.liquid_5per = False
 
     def init_UI(self):
 
@@ -99,11 +99,14 @@ class StartPage(SettingPage):
         self.label_liquid_balance.configure(text = "약재잔량 : " + str(liquid_balance) + "%")
         self.progressbar.configure(value=liquid_balance)
 
+        self.liquid_5per = False
         if liquid_balance >= 0 and liquid_balance <= 10:
             color_value = 'red'
             if self.liquid_10per == False:
                 self.liquid_10per = True
                 self.play_notice_10per_sound()
+            if liquid_balance <= 5:
+                self.liquid_5per = True
 
         elif liquid_balance > 10 and liquid_balance <= 30:
             color_value = 'yellow'
@@ -115,7 +118,7 @@ class StartPage(SettingPage):
             self.liquid_10per = False
             
         self.progressbar_style.configure("TProgressbar", foreground=color_value, background=color_value, thickness=30)
-        
+
 
     def modeBtnCheck(self):
         self.btnMode1.configure(image = self.imgBtnDetect01)
@@ -190,8 +193,9 @@ class StartPage(SettingPage):
         threading.Timer(0.5, self.sprayByTime).start()
 
     def spray_on(self):
-        GPIO.output(ConfigValue.SPRAY_WPI_NUM, True)
-        GPIO.output(ConfigValue.VALVE_WPI_NUM, False)
+        if self.liquid_5per == False :
+            GPIO.output(ConfigValue.SPRAY_WPI_NUM, True)
+            GPIO.output(ConfigValue.VALVE_WPI_NUM, False)
     
     def spray_off(self):
         GPIO.output(ConfigValue.SPRAY_WPI_NUM, False)
@@ -268,4 +272,4 @@ class StartPage(SettingPage):
             notice_10per_sound.play()
         else:
             return
-        threading.Timer(5, self.play_notice_10per_sound).start()
+        threading.Timer(30, self.play_notice_10per_sound).start()
