@@ -196,9 +196,9 @@ class StartPage(SettingPage):
     def bg_worker(self):
         while True:
             try:
-                val = self.hx.get_weight(17)
-                self.hx.power_down()
-                self.hx.power_up()
+                val = LiquidBalanceManager.hx.get_weight(17)
+                LiquidBalanceManager.hx.power_down()
+                LiquidBalanceManager.hx.power_up()
                 time.sleep(1)
                 self.update_liquid_balance(val * 10)
             except (KeyboardInterrupt, SystemExit):
