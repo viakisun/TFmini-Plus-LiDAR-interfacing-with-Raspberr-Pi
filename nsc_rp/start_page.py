@@ -201,13 +201,29 @@ class StartPage(SettingPage):
         hx.reset()
         hx.tare()
 
+        unit_value = 92
+        full_weight = 20000 #그램
+        empty_weight = 500 #그램
+
         while True:
             try:
-                val = hx.get_weight(17)
+                val = hx.get_weight(5)
                 hx.power_down()
                 hx.power_up()
+
+                if val < 0 :
+                    weight_ratio = 0
+                else :
+                    if val / unit_value < empty_weight :
+                        weight_ratio = 0
+                    elif val / unit_value > full_weight :
+                        weight_ratio = 100
+                    else :
+                        weight_ratio = (full_weight / (val / unit_value)) * 100
+
+                self.update_liquid_balance(weight_ratio)
+
                 time.sleep(1)
-                self.update_liquid_balance(val * 10)
             except (KeyboardInterrupt, SystemExit):
                 self.cleanAndExit()
 
