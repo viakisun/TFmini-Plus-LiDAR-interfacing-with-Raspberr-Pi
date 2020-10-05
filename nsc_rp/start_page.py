@@ -79,7 +79,7 @@ class StartPage(SettingPage):
 
     def start_check_liquid_balance(self):
         if platform.system() == "Linux" :
-            self.hx = HX711(17, 17)
+            self.hx = HX711(17, 27)
             self.hx.set_reading_format("MSB", "MSB")
             self.hx.set_reading_format("MSB", "MSB")
             self.hx.reset()
