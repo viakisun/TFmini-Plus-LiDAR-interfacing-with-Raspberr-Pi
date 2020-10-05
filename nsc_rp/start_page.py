@@ -210,16 +210,24 @@ class StartPage(SettingPage):
                 val = hx.get_weight(5)
                 hx.power_down()
                 hx.power_up()
+                
+                gram = val / unit_value
+                
+                print("test=======val : " + str(val))
+                print("test=======gram : " + str(gram))
 
                 if val < 0 :
                     weight_ratio = 0
                 else :
-                    if val / unit_value < empty_weight :
+                    if gram < empty_weight :
                         weight_ratio = 0
-                    elif val / unit_value > full_weight :
+                    elif gram > full_weight :
                         weight_ratio = 100
                     else :
-                        weight_ratio = (full_weight / (val / unit_value)) * 100
+                        print("test===========full_weight / gram : " + str(full_weight / gram))
+                        weight_ratio = round((gram / full_weight) * 100)
+                        
+                print("test==============weight_ratio : " + str(weight_ratio))
 
                 self.update_liquid_balance(weight_ratio)
 
