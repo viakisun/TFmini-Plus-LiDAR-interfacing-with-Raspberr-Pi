@@ -194,7 +194,6 @@ class StartPage(SettingPage):
         threading.Timer(0.1, self.on_out_valve).start()
 
     def bg_worker(self):
-        """
         while True:
             try:
                 val = self.hx.get_weight(5)
@@ -204,12 +203,13 @@ class StartPage(SettingPage):
                 self.update_liquid_balance(val * 10)
             except (KeyboardInterrupt, SystemExit):
                 self.cleanAndExit()
-        """
 
+        """
         while True:
             val = random.randint(1,10)
             self.update_liquid_balance(val * 10)
             time.sleep(1)
+        """
 
     def cleanAndExit(self):
         GPIO.cleanup()
