@@ -37,7 +37,7 @@ class RangeFinder():
                 temperature = (temperature/8) - 256
 
                 if distance < (float(ConfigManager().get_value("detect_distance_meter")) * 100) :
-                    if liquid_5per == false:
+                    if liquid_5per == False:
                         self.curtime = time.time()
                         self.spray_on()
                 else:
