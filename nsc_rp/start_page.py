@@ -79,11 +79,11 @@ class StartPage(SettingPage):
 
     def start_check_liquid_balance(self):
         if platform.system() == "Linux" :
-            LiquidBalanceManager.hx = HX711(17, 27)
-            LiquidBalanceManager.hx.set_reading_format("MSB", "MSB")
-            LiquidBalanceManager.hx.set_reading_format("MSB", "MSB")
-            LiquidBalanceManager.hx.reset()
-            LiquidBalanceManager.hx.tare()
+            self.hx = HX711(17, 17)
+            self.hx.set_reading_format("MSB", "MSB")
+            self.hx.set_reading_format("MSB", "MSB")
+            self.hx.reset()
+            self.hx.tare()
 
         t = threading.Thread(target=self.bg_worker)
         t.start()
@@ -196,9 +196,9 @@ class StartPage(SettingPage):
     def bg_worker(self):
         while True:
             try:
-                val = LiquidBalanceManager.hx.get_weight(17)
-                LiquidBalanceManager.hx.power_down()
-                LiquidBalanceManager.hx.power_up()
+                val = self.hx.get_weight(17)
+                self.hx.power_down()
+                self.hx.power_up()
                 time.sleep(1)
                 self.update_liquid_balance(val * 10)
             except (KeyboardInterrupt, SystemExit):
