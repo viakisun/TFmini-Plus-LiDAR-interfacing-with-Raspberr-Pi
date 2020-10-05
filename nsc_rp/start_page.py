@@ -85,6 +85,7 @@ class StartPage(SettingPage):
             self.hx.reset()
             self.hx.tare()
 
+
         t = threading.Thread(target=self.bg_worker)
         t.start()
 
@@ -194,11 +195,17 @@ class StartPage(SettingPage):
         threading.Timer(0.1, self.on_out_valve).start()
 
     def bg_worker(self):
+        hx = HX711(17, 27)
+        hx.set_reading_format("MSB", "MSB")
+        hx.set_reading_format("MSB", "MSB")
+        hx.reset()
+        hx.tare()
+
         while True:
             try:
-                val = self.hx.get_weight(17)
-                self.hx.power_down()
-                self.hx.power_up()
+                val = hx.get_weight(17)
+                hx.power_down()
+                hx.power_up()
                 time.sleep(1)
                 self.update_liquid_balance(val * 10)
             except (KeyboardInterrupt, SystemExit):
