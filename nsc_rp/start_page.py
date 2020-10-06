@@ -4,6 +4,7 @@ import tkinter as tk                # python 3
 import tkinter.ttk
 import threading
 import platform
+import time
 
 from setting_page import *
 if platform.system() == "Linux" :
@@ -41,6 +42,8 @@ class StartPage(SettingPage):
         self.liquid_10per = False
         self.liquid_5per = False
 
+        self.timestamp_alarm = 0
+
     def init_UI(self):
 
         self.imgBtnDetect01 = tk.PhotoImage(file='images/btnDetect01.png')
@@ -76,6 +79,9 @@ class StartPage(SettingPage):
         self.label_liquid_balance = tkinter.Label(self.frame, text="약재잔량 : 100%", fg="white", relief="flat", bg="#0C4323", font=font)
         self.label_liquid_balance.place(relx=0.78, rely=0.65)
 
+        self.notice_10per_sound = pygame.mixer.Sound('./sound/notice_10per.wav')
+        self.notice_10per_sound.set_volume(1)
+
         self.start_check_liquid_balance()
 
         self.modeBtnCheck()
@@ -99,23 +105,17 @@ class StartPage(SettingPage):
         self.label_liquid_balance.configure(text = "약재잔량 : " + str(liquid_balance) + "%")
         self.progressbar.configure(value=liquid_balance)
 
-        self.liquid_5per = False
-        if liquid_balance >= 0 and liquid_balance <= 10:
-            color_value = 'red'
-            if self.liquid_10per == False:
-                self.liquid_10per = True
-                self.play_notice_10per_sound()
-            if liquid_balance <= 5:
-                self.liquid_5per = True
+        color_value = 'green'
 
-        elif liquid_balance > 10 and liquid_balance <= 30:
+        if liquid_balance < 30:
             color_value = 'yellow'
-        elif liquid_balance > 30 and liquid_balance <= 100:
-            color_value = 'green'
-            self.liquid_10per = False
-        else:
-            color_value = 'green'
-            self.liquid_10per = False
+
+        if liquid_balance < 10:
+            color_value = 'red'
+            timestamp_current = time.time()
+            if timestamp_current - self.timestamp_alarm > 30:
+                self.notice_10per_sound.play()
+                self.timestamp_alarm = timestamp_current
             
         self.progressbar_style.configure("TProgressbar", foreground=color_value, background=color_value, thickness=30)
 
@@ -264,12 +264,3 @@ class StartPage(SettingPage):
     def cleanAndExit(self):
         GPIO.cleanup()
         sys.exit()
-
-    def play_notice_10per_sound(self):
-        notice_10per_sound = pygame.mixer.Sound('./sound/notice_10per.wav')
-        notice_10per_sound.set_volume(1)
-        if self.liquid_10per :
-            notice_10per_sound.play()
-        else:
-            return
-        threading.Timer(30, self.play_notice_10per_sound).start()
