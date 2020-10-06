@@ -39,8 +39,9 @@ class StartPage(SettingPage):
         self.hx = None
         pygame.init()
         pygame.mixer.init()
-        self.liquid_10per = False
-        self.liquid_5per = False
+
+        self.notice_10per_sound = pygame.mixer.Sound('./sound/notice_10per.wav')
+        self.notice_10per_sound.set_volume(1)
 
         self.timestamp_alarm = 0
 
@@ -54,11 +55,9 @@ class StartPage(SettingPage):
         self.imgBtnManual02 = tk.PhotoImage(file='images/btnManual02.png')
         self.settingBtnImg = tk.PhotoImage(file='images/btn_01.png')
 
-        
         self.btnMode1 = tk.Button(self.frame, image=self.imgBtnDetect01, relief=tk.SOLID, command=lambda: self.changeSprayMode(SprayMode.DETECT,self.btnMode1), bd=0, highlightthickness=0, bg=self.COLOR_BUTTON_BACKGROUND)
         self.btnMode2 = tk.Button(self.frame, image=self.imgBtnAuto01, relief=tk.SOLID, command=lambda: self.changeSprayMode(SprayMode.AUTO,self.btnMode2), bd=0, highlightthickness=0, bg=self.COLOR_BUTTON_BACKGROUND)
         self.btnMode3 = tk.Button(self.frame, image=self.imgBtnManual01, relief=tk.SOLID, command=lambda: self.changeSprayMode(SprayMode.MANUAL,self.btnMode3), bd=0, highlightthickness=0, bg=self.COLOR_BUTTON_BACKGROUND)
-
 
         self.btnMode4 = tk.Button(self.frame, relief=tk.SOLID, bd=0, highlightthickness=0, image=self.settingBtnImg, command=lambda: self.controller.show_frame("DetectPage"), bg=self.COLOR_BUTTON_BACKGROUND)
         self.btnMode5 = tk.Button(self.frame, relief=tk.SOLID, bd=0, highlightthickness=0, image=self.settingBtnImg, command=lambda: self.controller.show_frame("AutoPage"), bg=self.COLOR_BUTTON_BACKGROUND)
@@ -78,9 +77,6 @@ class StartPage(SettingPage):
         self.progressbar.place(relx=0.11, rely=0.7)
         self.label_liquid_balance = tkinter.Label(self.frame, text="약재잔량 : 100%", fg="white", relief="flat", bg="#0C4323", font=font)
         self.label_liquid_balance.place(relx=0.78, rely=0.65)
-
-        self.notice_10per_sound = pygame.mixer.Sound('./sound/notice_10per.wav')
-        self.notice_10per_sound.set_volume(1)
 
         self.start_check_liquid_balance()
 
@@ -217,20 +213,22 @@ class StartPage(SettingPage):
         hx = HX711(17, 27)
         hx.set_reading_format("MSB", "MSB")
         hx.set_reading_format("MSB", "MSB")
-        hx.reset()
-        hx.tare()
+#        hx.reset()
+#        hx.tare()
 
         unit_value = 92
         full_weight = 20000 #그램
-        empty_weight = 500 #그램
+        empty_weight = 0 #그램
 
         while True:
             try:
                 val = hx.get_weight(5)
-                hx.power_down()
-                hx.power_up()
+#                hx.power_down()
+#                hx.power_up()
                 
-                gram = val / unit_value
+                gram = val / unit_value 
+                gram = gram - 2798
+                gram = gram * 0.64
                 
                 print("test=======val : " + str(val))
                 print("test=======gram : " + str(gram))
@@ -243,7 +241,7 @@ class StartPage(SettingPage):
                     elif gram > full_weight :
                         weight_ratio = 100
                     else :
-                        print("test===========full_weight / gram : " + str(full_weight / gram))
+                        print("test===========full_weight / gram : " + str(gram / full_weight))
                         weight_ratio = round((gram / full_weight) * 100)
                         
                 print("test==============weight_ratio : " + str(weight_ratio))
