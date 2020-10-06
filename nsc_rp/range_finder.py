@@ -35,8 +35,11 @@ class RangeFinder():
                 strength = bytes_serial[4] + bytes_serial[5]*256
                 temperature = bytes_serial[6] + bytes_serial[7]*256
                 temperature = (temperature/8) - 256
+                
+                if distance < 200:
+                    print(distance)
 
-                if distance < (float(ConfigManager().get_value("detect_distance_meter")) * 100) :
+                if distance > 0 and distance < (float(ConfigManager().get_value("detect_distance_meter")) * 100) :
                     self.curtime = time.time()
                     if do_spray:
                         self.spray_on()

@@ -169,8 +169,6 @@ class StartPage(SettingPage):
         do_spray = True
         if self.amount < 5:
             do_spray = False
-            
-        print(do_spray)
         
         if ConfigManager().get_value("spray_mode") == SprayMode.DETECT:
             if platform.system() == "Linux" :
@@ -199,15 +197,13 @@ class StartPage(SettingPage):
         threading.Timer(0.5, self.sprayByTime).start()
 
     def spray_on(self):
-        if self.liquid_5per == False :
-            GPIO.output(ConfigValue.SPRAY_WPI_NUM, True)
-            GPIO.output(ConfigValue.VALVE_WPI_NUM, False)
-    
+        GPIO.output(ConfigValue.SPRAY_WPI_NUM, True)
+        GPIO.output(ConfigValue.VALVE_WPI_NUM, False)
+
     def spray_off(self):
         GPIO.output(ConfigValue.SPRAY_WPI_NUM, False)
         self.out_valve_start_time = time.time()
         self.on_out_valve()
-
 
     def on_out_valve(self):
         if time.time() - self.out_valve_start_time < ConfigValue.VALVE_ON_TIME:
