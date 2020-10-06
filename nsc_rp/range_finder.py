@@ -21,7 +21,7 @@ class RangeFinder():
                 self.ser.close()
                 print("program interrupted by the user")
 
-    def read(self, liquid_5per):
+    def read(self, do_spray):
         counter = self.ser.in_waiting # count the number of bytes of the serial port
         if counter > 8:
             bytes_serial = self.ser.read(9)
@@ -37,15 +37,12 @@ class RangeFinder():
                 temperature = (temperature/8) - 256
 
                 if distance < (float(ConfigManager().get_value("detect_distance_meter")) * 100) :
-                    if liquid_5per == False:
-                        self.curtime = time.time()
+                    self.curtime = time.time()
+                    if do_spray:
                         self.spray_on()
                 else:
                     if time.time() - self.curtime > float(ConfigManager().get_value("detect_spray_duration_sec")) :
-                        print("Here Here Here===")
                         self.spray_off()
-                    else:
-                        self.spray_on()
 
                 self.ser.reset_input_buffer()
 
