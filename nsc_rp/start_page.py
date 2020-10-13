@@ -183,7 +183,7 @@ class StartPage(SettingPage):
             return True
         
         print("automode cycle")
-        self.auto_thread = threading.Timer(int(ConfigManager().get_value("auto_cycle_min")) * 60, self.startAuto)
+        self.auto_thread = threading.Timer(int(ConfigManager().get_value("auto_cycle_min")), self.startAuto)
         self.auto_thread.start()
 
     def sprayByTime(self):
