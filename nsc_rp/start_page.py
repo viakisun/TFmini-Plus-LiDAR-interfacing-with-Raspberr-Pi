@@ -187,7 +187,11 @@ class StartPage(SettingPage):
         self.auto_thread.start()
 
     def sprayByTime(self):
-        if ConfigManager().get_value("spray_mode") == SprayMode.AUTO and time.time() - self.spray_start_time < int(ConfigManager().get_value("auto_spray_duration_sec")):
+        do_spray = True
+        if self.amount < 5:
+            do_spray = False
+
+        if ConfigManager().get_value("spray_mode") == SprayMode.AUTO and time.time() - self.spray_start_time < int(ConfigManager().get_value("auto_spray_duration_sec")) and do_spray:
             if platform.system() == "Linux":
                 self.spray_on()
         else:
