@@ -176,9 +176,14 @@ class StartPage(SettingPage):
             self.after(10, self.refresher) # every second...
 
     def startAuto(self):
+        do_spray = True
+        if self.amount < 5:
+            do_spray = False
+        
         if ConfigManager().get_value("spray_mode") == SprayMode.AUTO:
             self.spray_start_time = time.time()
-            self.sprayByTime()
+            if do_spray:
+                self.sprayByTime()
         else:
             return True
         
@@ -187,14 +192,9 @@ class StartPage(SettingPage):
         self.auto_thread.start()
 
     def sprayByTime(self):
-        do_spray = True
-        if self.amount < 5:
-            do_spray = False
-
         if ConfigManager().get_value("spray_mode") == SprayMode.AUTO and time.time() - self.spray_start_time < int(ConfigManager().get_value("auto_spray_duration_sec")):
             if platform.system() == "Linux":
-                if do_spray:
-                    self.spray_on()
+                self.spray_on()
         else:
             if platform.system() == "Linux":
                 self.spray_off()
