@@ -46,7 +46,7 @@ class AutoPage(SettingPage):
     def upTime(self):
         ATTRIBUTE_ = "auto_spray_duration_sec"
         INCREMENT_ = 1
-        MAX_ = 30
+        MAX_ = 100
 
         value_ = self.get_value(ATTRIBUTE_)
         str_value_ = str(value_ + INCREMENT_)
@@ -82,7 +82,7 @@ class AutoPage(SettingPage):
     def downCycleTime(self):
         ATTRIBUTE_ = "auto_cycle_min"
         INCREMENT_ = 1
-        MIN_ = 10
+        MIN_ = 5
 
         value_ = self.get_value(ATTRIBUTE_)
         str_value_ = str(value_ - INCREMENT_)
