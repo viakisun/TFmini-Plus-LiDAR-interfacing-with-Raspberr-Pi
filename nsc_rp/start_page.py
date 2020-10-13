@@ -191,9 +191,10 @@ class StartPage(SettingPage):
         if self.amount < 5:
             do_spray = False
 
-        if ConfigManager().get_value("spray_mode") == SprayMode.AUTO and time.time() - self.spray_start_time < int(ConfigManager().get_value("auto_spray_duration_sec")) and do_spray:
+        if ConfigManager().get_value("spray_mode") == SprayMode.AUTO and time.time() - self.spray_start_time < int(ConfigManager().get_value("auto_spray_duration_sec")):
             if platform.system() == "Linux":
-                self.spray_on()
+                if do_spray:
+                    self.spray_on()
         else:
             if platform.system() == "Linux":
                 self.spray_off()
