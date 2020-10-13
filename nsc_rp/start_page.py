@@ -88,7 +88,7 @@ class StartPage(SettingPage):
 
     def start_check_liquid_balance(self):
         if platform.system() == "Linux" :
-            self.hx = HX711(17, 27)
+            self.hx = HX711(ConfigValue.LOADCELL_DT_WPI_NUM, ConfigValue.LOADCELL_SCK_WPI_NUM)
             self.hx.set_reading_format("MSB", "MSB")
             self.hx.set_reading_format("MSB", "MSB")
             self.hx.reset()
@@ -216,7 +216,7 @@ class StartPage(SettingPage):
         threading.Timer(0.1, self.on_out_valve).start()
 
     def bg_worker(self):
-        hx = HX711(17, 27)
+        hx = HX711(ConfigValue.LOADCELL_DT_WPI_NUM, ConfigValue.LOADCELL_SCK_WPI_NUM)
         hx.set_reading_format("MSB", "MSB")
         hx.set_reading_format("MSB", "MSB")
 #        hx.reset()
