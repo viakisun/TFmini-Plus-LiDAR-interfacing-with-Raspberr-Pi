@@ -168,7 +168,7 @@ class StartPage(SettingPage):
         
         do_spray = True
         if self.amount < 5:
-            do_spray = True
+            do_spray = False
         
         if ConfigManager().get_value("spray_mode") == SprayMode.DETECT:
             if platform.system() == "Linux" :
